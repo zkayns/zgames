@@ -25,7 +25,8 @@ async function getVersion() {
       if (document.location.href.includes("file:///")) { // im not indenting this LOLLLL
       var conf = confirm("A new update is available. Would you like to download it?");
       if (conf == true) {
-          try { window.open("https://bit.ly/zgamesv2", "_blank").focus(); }
+          var link = ['https://github.com/zkayns/zgames/archive/refs/tags/', version, '.zip'].join("")
+          try { window.open(link, "_blank").focus(); }
           catch (e) /* I HATE IDIOTS AND STUPID PEOPLE */{ popups() }
       } else {
           //why would you cancel jaja
