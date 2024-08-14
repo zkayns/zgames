@@ -4,6 +4,10 @@ var time = document.getElementById("time")
 var keyspressed = [];
 var keyspressed2 = [];
 var version = document.querySelector(".version").innerHTML.split("v")[1].substring(0,5); //dont make it more than 5 characters or you're stupid btw
+tippy('a', {
+    content: (reference) => reference.firstElementChild.alt,
+    animation: 'scale-subtle',
+});
 //alert(version)
 function popups() {
     alert(["Popups are blocked. You can unblock popups by going to chrome://settings/content/popups, pressing the \"Add\" button next to \"Allowed to send pop-ups and use redirects\", entering ", document.location.href, " under \"Site\", and pressing \"Add\"."].join(""))
@@ -239,10 +243,6 @@ function share() {
     stopOnFocus: true,   style: {     background: "linear-gradient(to right, #00b09b, #96c93d)",   },   
     onClick: function(){}  
 }).showToast();*/
-tippy('a', {
-    content: (reference) => reference.firstElementChild.alt,
-    animation: 'scale-subtle',
-});
 /* color references
 error #eb3440
 */
