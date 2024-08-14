@@ -248,7 +248,9 @@ const messages = [
   "tidal wave rated we are so back",
   "j",
   "play ages of conflict awesome it's a good game",
-  "reminder to check for updates (they are good)"
+  "reminder to check for updates (they are good)",
+  "lets pretend the old splashes aren't trash (they are)",
+  "What up Reddit, it's Kendrick Lamar"
 ]
 // title messages (no way)
 const titlemessages = [
