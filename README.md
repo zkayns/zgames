@@ -267,3 +267,6 @@ Games.
 ### 2.1.9 (8.13.2024)
 * Added local check for auto-updater
 * WE BACK ON THE INTERNET RAAH
+### 2.2.0 (8.14.2024)
+* Added Paper.io 2
+* Polished some stuff
