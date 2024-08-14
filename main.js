@@ -5,6 +5,10 @@ var keyspressed = [];
 var keyspressed2 = [];
 var version = document.querySelector(".version").innerHTML.split("v")[1].substring(0,5); //dont make it more than 5 characters or you're stupid btw
 //alert(version)
+function dlpage() {
+    var link = ['https://github.com/zkayns/zgames/archive/refs/tags/', version, '.zip'].join("")
+    document.location.href = link
+}
 function popups() {
     alert(["Popups are blocked. You can unblock popups by going to chrome://settings/content/popups, pressing the \"Add\" button next to \"Allowed to send pop-ups and use redirects\", entering ", document.location.href, " under \"Site\", and pressing \"Add\"."].join(""))
 }
