@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZGames</title>
+    <link rel="icon" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./toastify.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+  <!-- Thanks to 3kh0 for letting me shamelessly copy games -->
+</head>
+<script>
+</script>
+<body <!--class="light"-->>
+    <nav>
+        <img src="images/logo.png" alt="logo" id="logoImg" onclick="logoClicked()"> <!-- we change nothing about the logo because we are too lazy to, #lit -->
+        <h1 id="zgtitle">ZGames</h1><p class="version">(sponsored by Golden Union) v2.1.9 (8.13.2024) </p><p id="time"><p id="accountstuff"><a href="./account.html">Account</a></a></p></p>
+        <!-- when changing the version number remember to make sure it's only 5 characters long, no more, no less. if you don't auto-updating will break. also, reminder for zkayns (me!) make sure to change the thingy in version.txt -->
+    </nav>
+    <div class="featured">
+        <h1 id="message"></h1>
+        <br>
+        <div class="column">
+          <a href="https://zkayns.github.io/ruffle">
+            <img src="images/ruffle.png" alt="Ruffle">
+            <div class="play-button">
+                <i class="fa-solid fa-play"></i>
+            </div>
+          </a>
+          <a href="https://zkayns.github.io/ovo">
+            <img src="images/ovo.png" alt="OvO">
+            <div class="play-button">
+                <i class="fa-solid fa-play"></i>
+            </div>
+          </a>
+        </div>
+        <div class="row">
+          <a href="./games/webretro-standalone.html">
+            <img src="images/webretro.png" alt="WebRetro">
+            <div class="play-button">
+                <i class="fa-solid fa-play"></i>
+            </div>
+          </a>
+        </div>
+        <div class="row">
+          <a href="games/1v1xd/index.html">
+            <img src="images/1v1.png" alt="1v1.LOL">
+            <div class="play-button">
+                <i class="fa-solid fa-play"></i>
+            </div>
+            </a>
+        </div>
+        <div class="column">
+          <a href="https://zkayns.github.io/SM64-JS/">
+            <img src="images/sm64.jpg" alt="Super Mario 64">
+            <div class="play-button">
+                <i class="fa-solid fa-play"></i>
+            </div>
+          </a>
+          <a href="games/dogeminer/index.html">
+            <img src="images/dogeminer_300x300.png" alt="Dogeminer">
+            <div class="play-button">
+                <i class="fa-solid fa-play"></i>
+            </div>
+          </a>
+        </div>
+        </div>
+
+    <div class="content">
+
+    <hr>
+
+    <div class="search">
+        <input type="text" placeholder="Search..." oninput="">
+    </div>
+
+    <div id="games">
+        <a href="https://zkayns.github.io/bugfreeguacamole/vex3"><img src="images/vex3.jpg" alt="Vex 3"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/vex4"><img src="images/vex4.jpg" alt="Vex 4"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/vex5"><img src="images/vex5.jpg" alt="Vex 5"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/vex6"><img src="images/vex6.jpeg" alt="Vex 6"></a>
+        <!-- <a href="games/vex7/"><img src="images/vex7.jpeg" alt="vex 7"></a> which idiot made vex7 softlock after level 1 bro-->
+        <!-- <a href="games/hexgl/"><img src="images/hexgl.jpg" alt="hexgl"></a> -->
+        <a href="https://zkayns.github.io/bugfreeguacamole/retro-bowl"><img src="images/retro-bowl.jpg" alt="Retro Bowl"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/drive-mad"><img src="images/drive-mad.jpg" alt="Drive Mad"></a>
+        <a href="./games/slope/index.html"><img src="images/slope.jpg" alt="Slope"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/hackertyper"><img src="images/hackertyper.png" alt="Hackertyper"></a>
+        <a href="games/1v1xd/index.html"><img src="images/1v1.png" alt="1v1.LOL"></a>
+        <a href="games/dogeminer/index.html"><img src="images/dogeminer_300x300.png" alt="Dogeminer"></a>
+        <!-- <a href="games/dogeminer2/"><img src="images/dogeminer2.jpg" alt="dogeminer 2"></a> -->
+        <a href="https://zkayns.github.io/bugfreeguacamole/cellmachine/"><img src="images/cellmachine.png" alt="Cell Machine"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/basketbros"><img src="images/basketbros.jpg" alt="Basketbros"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/basketrandom"><img src="images/basketrandom.jpeg" alt="Basket Random"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/boxingrandom"><img src="images/boxingrandom.jpg" alt="Boxing Random"></a>
+        <a href="https://zkayns.github.io/rooftopsnipers"><img src="images/rooftopsnipers.avif" alt="Rooftop Snipers"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/bad-ice-cream"><img src="images/bad-ice-cream.png" alt="Bad Ice Cream"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/bad-ice-cream-2"><img src="images/bad-ice-cream-2.png" alt="Bad Ice Cream 2"></a>
+        <a href="https://zkayns.github.io/bugfreeguacamole/bad-ice-cream-3"><img src="images/bad-ice-cream-3.png" alt="Bad Ice Cream 3"></a>
+        <a href="./games/twitch-tetris/index.html"><img src="images/twitch-tetris.png" alt="TwitchTetris"></a>
+        <a href="./games/snowrider/index.html"><img src="images/snowrider.jpg" alt="Snow Rider 3D"></a>
+        <!--<a href="https://chess.1447621498.repl.co/"><img src="images/chess.png" alt="chess"></a> -->
+        <a href="./games/onion-quest.html"><img src="images/orig.png" alt="Onion Quest"></a>
+        <a href="./games/onion-quest-redux.html"><img src="images/redux.png" alt="Onion Quest Redux"></a>
+        <a href="./games/onion-quest-1.5.html"><img src="images/15.png" alt="Onion Quest 1.5"></a>
+        <!--<a href="./games/among.html"><img src="images/amoung us xaxaxa.jpg" alt="among us"></a>-->
+        <!-- <a href="https://zgames.zkayns.repl.co/games/drift-boss"><img src="images/driftboss.png" alt="drift boss"></a> -->
+        <a href="https://zkayns.github.io/bugfreeguacamole/papasburgeria"><img src="images/burgeria.jpg" alt="Papa's Burgeria"></a>
+        <a href="https://zkayns.github.io/ovo"><img src="images/ovo.png" alt="OvO"></a>
+        <a href="https://zkayns.github.io/SM64-JS"><img src="images/sm64.jpg" alt="Super Mario 64"></a>
+        <a href="./games/cclicker/index.html"><img src="images/cookieclicker.png" alt="Cookie Clicker"></a>
+        <a href="https://zhextris.glitch.me"><img src="images/hextris.png" alt="Hextris"></a>
+        <a href="./games/2048/index.html"><img src="images/2048.png" alt="2048"></a>
+        <a href="https://ztunnelrush.glitch.me"><img src="images/tunnelrush.png" alt="Tunnel Rush"></a>
+        <a href="https://caseoh-breakout.glitch.me/"><img src="images/idlebreakout.png" alt="Idle Breakout"></a>
+        <a href="./games/adofai/index.html"><img src="images/adofai.png" alt="A Dance of Fire and Ice"></a>
+        <a href="https://ages-of-conflict.glitch.me/"><img src="images/aoc.png" alt="Ages of Conflict"></a>
+        <a href="https://zg-yohoho.glitch.me"><img src="images/yohoho.png" alt="YoHoHo"></a>
+        <a href="https://zg-gs.glitch.me"><img src="images/getaway.jpg" alt="Getaway Shootout"></a>
+        <a href="https://zarraz.glitch.me"><img src="images/arras.png" alt="Zarraz"></a>
+        <a href="https://zkayns.github.io/ruffle"><img src="images/ruffle.png" alt="Ruffle"></a>\
+        <a href="https://zkayns.github.io/waflash-demo"><img src="images/waflash.png" alt="WAFlash"></a>
+        <a href="./games/webretro-standalone.html"><img src="images/webretro.png" alt="WebRetro"></a>
+        <a href="https://zkayns.github.io/ejsdemo"><img src="images/emulatorjs.png" alt="EmulatorJS"></a>
+    </div>
+    </div>
+    <p><fixtest class="console"><input style="display: none;" type="text" id="console" autocorrect="off"></fixtest></p>
+    <button class="button" onclick="share()">Share</button>
+    <button class="button" onclick="window.open('https://bit.ly/zgamesv2')">Download page (for updates)</button>
+    <div class="customjs">
+    <input type="text" placeholder="Run custom JS" id="customjs" oninput="" autocorrect="off">
+    </div>
+    <button class="button" onclick="savejs()">Autoload</button>
+    <button class="button" onclick="clearjs()">Clear saved custom JS</button>
+    <button class="button" onclick="getjs()">Get saved custom JS</button>
+    <div class="logs">
+    <textarea type="text" placeholder="" id="logs" oninput="" rows="10" cols="60" autocorrect="off" readonly></textarea>
+    </div>
+    <button class="button" onclick="clearlogs()">Clear logs</button>
+    <button class="button" onclick="changeTitle()">Change page title</button>
+    <button class="button" onclick="cloak()">Open in about:blank</button>
+    <div class="emergency">
+    <input type="text" placeholder="Emergency URL" id="emergency" oninput="" autocorrect="off">
+    </div>
+    <button class="button" onclick="emergency()">Emergency</button>
+    <!--<div class="tips">
+    <textarea type="text" placeholder="" id="tips" oninput="" rows="10" cols="60" autocorrect="off" readonly>
+Tips:
+Ctrl+Shift-click a game's icon to open it in cloaked mode.
+    </textarea>
+    </div>-->
+    <!--<p><a href="javascript:changeTitle()">Change Page Title</a></p><p><a href="javascript:cloak()">Open in about:blank</a></p>
+    <p><a href="https://zkayns.github.io/buypass">Buypass</a></p>-->
+</body>
+</html>
+<script src="./ping.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+<script type="text/javascript" src="toastify.js"></script>
+<script src="search.js"></script>
+<script src="jquery.js"></script>
+<script src="message.js"></script>
+<script src="main.js"></script>
+<script src="cloak.js"></script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>-->

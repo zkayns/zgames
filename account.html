@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZGames - Account Panel</title>
+    <link rel="icon" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./toastify.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+  <!-- Thanks to 3kh0 for letting me shamelessly copy games -->
+</head>
+<script>
+</script>
+<body <!--class="light"-->>
+    <nav>
+        <img src="images/logo.png" alt="logo" id="logoImg" onclick="logoClicked()"> <!-- we change nothing about the logo because we are too lazy to, #lit -->
+        <h1 id="zgtitle">ZGames</h1><p class="version">(sponsored by Golden Union) v2.1.9 (8.13.2024) </p><p id="time"><p id="accountstuff"><a href="./index.html">Main Page</a></a></p></p>
+        <!-- when changing the version number remember to make sure it's only 5 characters long, no more, no less. if you don't auto-updating will break. also, reminder for zkayns (me!) make sure to change the thingy in version.txt -->
+    </nav>
+    <h1 style="margin-top: 100px; color: #FFF;">Register</h1>
+    <div class="username">
+        <input type="text" placeholder="Username" oninput="getUsername()" id="username">
+    </div>
+    <div class="password" style="margin-top: 0.5cm;">
+        <input type="password" placeholder="Password" oninput="" id="password">
+    </div>
+    <button class="button" style="margin-left: 0px; margin-top: 0.5cm;" value="Submit" onclick="document.location.href = ['https://zgames-accounts.glitch.me/registerZGAccount20.php?username=', getUsername(), '&password=', getPassword()].join(``)">Submit</button>
+    <p style="color: #FFF;">The account system is currently a work in progress and has not been fully completed.</p>
+    <p style="color: #FFF;">Make sure to save your password somewhere safe.</p>
+    <p style="color: #FFF;">Go to <a href='https://zgames-accounts.glitch.me/user/index.php'>https://zgames-accounts.glitch.me/user/index.php</a> to browse users.</p>
+</body>
+</html>
+<script src="./ping.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+<script type="text/javascript" src="toastify.js"></script>
+<script src="jquery.js"></script>
+<script src="time.js"></script>
+<script>
+function getUsername() {
+    document.getElementById("username").value = document.getElementById("username").value.toLowerCase().replace(/[^a-z0-9]/gi, '');
+    return document.getElementById("username").value
+}
+function getPassword() {
+    return document.getElementById("password").value
+}
+/*function register() {
+    var request = fetch("https://zgames-accounts.glitch.me/registerZGAccount20.php?" + new URLSearchParams({
+        username: getUsername(),
+        password: getPassword(),
+    }))
+}*/
+</script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>-->
