@@ -6,7 +6,7 @@ var keyspressed2 = [];
 var version = document.querySelector(".version").innerHTML.split("v")[1].substring(0,5); //dont make it more than 5 characters or you're stupid btw
 //alert(version)
 function dlpage() {
-    var link = ['https://github.com/zkayns/zgames/archive/refs/tags/', version, '.zip'].join("")
+    var link = 'https://github.com/zkayns/zgames/archive/refs/heads/main.zip'
     document.location.href = link
 }
 function popups() {
@@ -25,7 +25,7 @@ async function getVersion() {
       if (document.location.href.includes("file:///")) { // im not indenting this LOLLLL
       var conf = confirm("A new update is available. Would you like to download it?");
       if (conf == true) {
-          var link = ['https://github.com/zkayns/zgames/archive/refs/tags/', version, '.zip'].join("")
+          var link = 'https://github.com/zkayns/zgames/archive/refs/heads/main.zip'
           try { window.open(link, "_blank").focus(); }
           catch (e) /* I HATE IDIOTS AND STUPID PEOPLE */{ popups() }
       } else {
