@@ -229,7 +229,7 @@ function comicsans() {
 function share() {
     var data = {
         title: "ZGames",
-        url: "https://bit.ly/3xz3Eul"
+        url: "https://zkayns.github.io/zgames"
     }
     navigator.share(data)
 }
