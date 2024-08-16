@@ -272,3 +272,7 @@ Games.
 * Polished some stuff
 ### 2.2.1 (8.16.2024)
 * Added Incremancer
+### 2.2.2 (8.16.2024)
+* Added Drift Boss
+* Changed Slope link to try and fix the out of memory error
+* Added AdVenture Capitalist
