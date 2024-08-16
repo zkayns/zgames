@@ -270,3 +270,5 @@ Games.
 ### 2.2.0 (8.14.2024)
 * Added Paper.io 2
 * Polished some stuff
+### 2.2.1 (8.16.2024)
+* Added Incremancer
