@@ -336,3 +336,4 @@ if (secretchooser > 0.9 && secretchooser < 0.95)  {
   var buildtitle = ["steve games - ", pickedtitle]
   document.title = buildtitle.join('')
 }*/
+message = "Vote S.W.A.G Party. Zach is a crook!"
