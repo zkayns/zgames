@@ -337,3 +337,4 @@ if (secretchooser > 0.9 && secretchooser < 0.95)  {
   document.title = buildtitle.join('')
 }*/
 message = "Vote S.W.A.G Party. Zach is a crook!"
+document.getElementById("message").innerHTML = message;
