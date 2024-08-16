@@ -1,6 +1,7 @@
 // hey! this is where all the message stuff happens.
 // 8/2/2023 update: added comments to make sure stuff is organized
 // initialize date
+var politics = true;
 var date = new Date();
 var haha = ["ZGames shuts down on ", date.getMonth()+1, "/", date.getDate()+1, "/", date.getFullYear()];
 // splash texts
@@ -323,7 +324,11 @@ if (date.getMonth()+1 == 1 && date.getDate() == 17) {
   message = "Happy birthday, Minecraft 1.0!"
 }
 // display picked splash
-document.getElementById("message").innerHTML = message;
+if (politics) {
+  document.getElementById("message").innerHTML = message;
+} else {
+  document.getElementById("message").innerHTML = "Vote S.W.A.G Party. Zach is a crook!";
+}
 // shh snore mimimimi
 var secretchooser = Math.random()
 /*if (secretchooser > 0.95)  {
@@ -336,5 +341,3 @@ if (secretchooser > 0.9 && secretchooser < 0.95)  {
   var buildtitle = ["steve games - ", pickedtitle]
   document.title = buildtitle.join('')
 }*/
-message = "Vote S.W.A.G Party. Zach is a crook!"
-document.getElementById("message").innerHTML = message;
