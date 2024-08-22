@@ -37,7 +37,7 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 <script src="base64.js"></script>
 
 <script>
-var VERSION=2.052;
+var VERSION=2.053;
 var BETA=0;
 var App=typeof App==='undefined'?0:App;
 </script>
@@ -126,8 +126,8 @@ var App=typeof App==='undefined'?0:App;
 			<div id="bakeryNameAnchor"><div id="bakeryName" class="title"></div></div>
 			<div id="specialPopup" class="framed prompt offScreen"></div>
 			<div id="buffs" class="crateBox"></div>
-			<div id="cookieAnchor">
-				<button id="bigCookie"></button>
+			<div id="cookieAnchor" oncontextmenu="return false;">
+				<button id="bigCookie" oncontextmenu="return false;"></button>
 				<div id="cookieNumbers"></div>
 			</div>
 			<div id="sectionLeftExtra"></div>
