@@ -276,3 +276,5 @@ Games.
 * Added Drift Boss
 * Changed Slope link to try and fix the out of memory error
 * Added AdVenture Capitalist
+### 2.2.3 (8.22.2024)
+* Updated CCX to 2.053
