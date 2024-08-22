@@ -212,7 +212,7 @@ for (var i in suffixes)
 }
 formatShort[10]='Dc';
 
-
+//orteil bro you can't do this
 var numberFormatters=
 [
 	formatEveryThirdPower(formatShort),
@@ -1235,11 +1235,12 @@ var Game={};
             logic:function(){
             },
             save:function(){
-			return JSON.stringify({"foolsoption":Game.prefs.foolsoption});
+			return JSON.stringify({"foolsoption":Game.prefs.foolsoption, "heretic":Game.prefs.heretic});
 			},
             load:function(str){
                 var data=JSON.parse(str)
                 if (data.foolsoption) Game.prefs.foolsoption = data.foolsoption
+                if (data.heretic) Game.prefs.heretic = data.heretic
             },
         })
 }
@@ -1256,7 +1257,7 @@ if (!App && window.location.href.indexOf('/beta')>-1) Game.beta=1;
 else if (App && new URL(window.location.href).searchParams.get('beta')) Game.beta=1;
 Game.https=!App?((location.protocol!='https:')?false:true):true;
 Game.SaveTo='CookieClickerGame';
-if (Game.beta) Game.SaveTo='CookieClickerGameBeta';
+if (!Game.beta) Game.SaveTo='CookieClickerGameBeta';
 if (App && new URL(window.location.href).searchParams.get('modless')) Game.modless=1;
 Game.local=(!location.hostname || location.hostname==='localhost' || location.hostname==='127.0.0.1');
 if (App) Game.local=true;
@@ -2238,6 +2239,7 @@ Game.Launch=function()
 		Game.ascensionMode=0;//type of challenge run if any
 		Game.resets=0;//reset counter
 		Game.lumps=-1;//sugar lumps
+        Game.forceLumps=0;//scuffed
 		Game.lumpsTotal=-1;//sugar lumps earned across all playthroughs (-1 means they haven't even started yet)
 		Game.lumpT=Date.now();//time when the current lump started forming
 		Game.lumpRefill=0;//time left before a sugar lump can be used again (on minigame refills etc) in logic frames
@@ -2356,6 +2358,7 @@ Game.Launch=function()
 			Game.prefs.format=0;//shorten numbers
 			Game.prefs.notifs=0;//notifications fade faster
 			Game.prefs.foolsoption=0;//abril fool
+            Game.prefs.heretic=0;
 			Game.prefs.animate=1;//animate buildings
 			Game.prefs.wobbly=1;//wobbly cookie
 			Game.prefs.monospace=0;//alt monospace font for cookies
@@ -2454,6 +2457,7 @@ Game.Launch=function()
 			Game.bakeryNameL.textContent=name;
 			name=Game.bakeryName.toLowerCase();
 			if (name=='orteil') Game.Win('God complex');
+			if (name=='idspispopd') Game.Win('Where can I buy Cookie Clicker?');
 			if (name=='zkayns') Game.Win('Skid complex');
 			if (!App && name.indexOf('saysopensesame',name.length-('saysopensesame').length)>0 && !Game.sesame) Game.OpenSesame();
 			Game.recalculateGains=1;
@@ -2690,7 +2694,7 @@ Game.Launch=function()
 		Game.GrabData=function()
 		{
             var randomthing = Math.floor(Math.random()*100)
-			if (!App) Game.GrabDataResponse('{"grandma":"", "herald": '+/*randomthing*/100+"}")
+			if (!App) Game.GrabDataResponse('{"grandma":"Drake|Kendrick Lamar|J Cole", "herald": '+/*randomthing*/100+"}")
 			else App.grabData(function(res){
 				Game.heralds=res?(res.playersN||1):1;
 				Game.heralds=Math.max(0,Math.min(100,Math.ceil(Game.heralds/100*100)/100));
@@ -2765,7 +2769,7 @@ Game.Launch=function()
 					str+='<b style="color:#bc3aff;text-shadow:0px 1px 0px #6d0096;">'+loc("%1 herald",Game.heralds)+'</b> '+loc("selflessly inspiring a boost in production for everyone, resulting in %1.",'<br><b style="color:#cdaa89;text-shadow:0px 1px 0px #7c4532,0px 0px 6px #7c4532;"><div style="width:16px;height:16px;display:inline-block;vertical-align:middle;background:url(img/money.png);"></div>'+loc("+%1% cookies per second",Game.heralds)+'</b>');
 					str+='<div class="line"></div>';
 					if (Game.ascensionMode==1) str+=loc("You are in a <b>Born again</b> run, and are not currently benefiting from heralds.");
-					else if (Game.Has('Heralds')) str+=loc("You own the <b>Heralds</b> upgrade, and therefore benefit from the production boost.");
+					else if (Game.Has('Heralds') || Game.prefs.heretic) str+=loc("You own the <b>Heralds</b> upgrade, and therefore benefit from the production boost.");
 					else str+=loc("To benefit from the herald bonus, you need a special upgrade you do not yet own. You will permanently unlock it later in the game.");
 				}
 			}
@@ -4452,6 +4456,7 @@ Game.Launch=function()
 				Game.permanentUpgrades=[-1,-1,-1,-1,-1];
 				Game.ascensionMode=0;
 				Game.lumps=-1;
+                Game.forceLumps=0;//scuffed again
 				Game.lumpsTotal=-1;
 				Game.lumpT=Date.now();
 				Game.lumpRefill=0;
@@ -5305,6 +5310,8 @@ Game.Launch=function()
 		
 		Game.canLumps=function()//grammatically pleasing function name
 		{
+            if (Game.forceLumps) return true;
+            if (Game.forceLumps<0) return false;
 			if (Game.lumpsTotal>-1 || (Game.ascensionMode!=1 && (Game.cookiesEarned+Game.cookiesReset)>=1000000000)) return true;
 			return false;
 		}
@@ -8089,7 +8096,7 @@ Game.Launch=function()
 						'News : what makes cookies taste so right? "Probably all the [*****] they put in them", says anonymous tipper.',
 						'News : man found allergic to cookies; "what a weirdo", says family.',
 						'News : foreign politician involved in cookie-smuggling scandal.',
-						'News : cookies now more popular than '+choose(['cough drops','broccoli','smoked herring','cheese','video games','stable jobs','relationships','divorce','time travel','cat videos','tango','fashion','television','nuclear warfare','whatever it is we ate before','politics','oxygen','lamps','kidney stones','guac','Arch Linux','MrBeast','Midas Fortnite','speculation about ZMC','ZGames','latinas','Tex-Mex restaurants','Chipotle','Kai Cenat','Lil Baby','Cr1tikal','God of War','the all new 2019 Chevy Silverado','chemotherapy','getting dubs in Zero Build','appendicitis'])+', says study.',
+						'News : cookies now more popular than '+choose(['cough drops','broccoli','smoked herring','cheese','video games','stable jobs','relationships','divorce','time travel','cat videos','tango','fashion','television','nuclear warfare','whatever it is we ate before','politics','oxygen','lamps','kidney stones','guac','Arch Linux','MrBeast','Midas Fortnite','speculation about ZMC','ZGames','latinas','Tex-Mex restaurants','Chipotle','Kai Cenat','Lil Baby','Cr1tikal','God of War','the all new 2019 Chevy Silverado','chemotherapy','getting dubs in Zero Build','appendicitis','Sketch','Jynxzi','CaseOh','Young Thug'])+', says study.',
 						'News : obesity epidemic strikes nation; experts blame '+choose(['twerking','that darn rap music','video-games','lack of cookies','mysterious ghostly entities','aliens','parents','schools','comic-books','cookie-snorting fad','CaseOh'])+'.',
 						'News : cookie shortage strikes town, people forced to eat cupcakes; "just not the same", concedes mayor.',
 						'News : "you gotta admit, all this cookie stuff is a bit ominous", says confused idiot.',
@@ -9118,7 +9125,7 @@ Game.Launch=function()
 							}
 							if (Game.prefs.customGrandmas && Game.customGrandmaNames.length>0)
 							{
-								var str=loc("Names in white were submitted by our supporters on Patreon.");
+								var str=loc("Names in white were submitted by you goobers on ZGames.");
 								ctx.globalAlpha=0.75;
 								ctx.fillStyle='#000';
 								ctx.font='9px Merriweather';
@@ -9496,7 +9503,7 @@ Game.Launch=function()
 			var list=['grandma'];
 			if (Game.Has('Farmer grandmas')) list.push('farmerGrandma');
 			if (Game.Has('Worker grandmas')) list.push('workerGrandma');
-			if (Game.Has('Miner grandmas')) list.push('minerGrandma');
+			if (Game.Has('Miner grandmas')) list.push('minerGrandma'); // probably a miner
 			if (Game.Has('Cosmic grandmas')) list.push('cosmicGrandma');
 			if (Game.Has('Transmuted grandmas')) list.push('transmutedGrandma');
 			if (Game.Has('Altered grandmas')) list.push('alteredGrandma');
@@ -12712,9 +12719,10 @@ Game.Launch=function()
 		Game.NewUpgradeCookie({name:'Frosted sugar cookies',desc:'May be more style than substance, depending on the recipe. Nothing that hides itself under this much frosting should be trusted.',icon:[22,35],power:						5,price: getCookiePrice(50)});
 		Game.NewUpgradeCookie({name:'Marshmallow sandwich cookies',desc:'S\'mores\' more civilized cousins: two regular chocolate chip cookies joined by a gooey, melty marshmallow. Theoretically one could assemble all kinds of other things this way. The mind races.',icon:[31,34],power:						5,price: getCookiePrice(51)});
 		
-		Game.NewUpgradeCookie({name:'Web cookies',desc:'The original recipe; named for the delicate pattern inscribed on their surface by the baking process. Eating these can tell a lot about someone. Invented by well-connected bakers, no doubt.'+(App?'<br>Only of any use in Cookie Clicker\'s web version, of course.':''),icon:[25,35],power:						(App?0:5),price: getCookiePrice(52)});if (App) Game.last.pool='debug';
+		Game.NewUpgradeCookie({name:'Web cookies',desc:'The original recipe; named for the delicate pattern inscribed on their surface by the baking process. Eating these can tell a lot about someone. Invented by well-connected bakers, no doubt.'+(App?'<br>Only of any use in Cookie Clicker\'s web version, of course.':''),icon:[25,35],power:						(App?0:5),price: getCookiePrice(52)});if (!App) Game.last.pool='debug';
 		Game.NewUpgradeCookie({name:'Steamed cookies',desc:'Localized entirely within this gaming platform? Yes! Baked with the power of steam, in a touch of cutting-edge modernity not seen since the industrial revolution.'+(!App?'<br>Only of any use in Cookie Clicker\'s Steam version, of course.':''),icon:[26,35],power:						(App?5:0),price: getCookiePrice(52)});if (!App) Game.last.pool='debug';
-		
+		order=10030;
+		Game.NewUpgradeCookie({name:'Deceived cookies',desc:'You will never be localized.'+(!App?'<br>We\'ve done what you couldn\'t.':''),icon:[26,35],power:						(App?5:5),price: getCookiePrice(52)});if (!App) Game.last.pool='debug';
 		order=10050;
 		Game.NewUpgradeCookie({name:'Deep-fried cookie dough',desc:'They\'ll fry anything these days. Drizzled in hot chocolate syrup, just like in state fairs. Spikes up your blood sugar AND your cholesterol!',icon:[23,35],require:'Box of maybe cookies',power:						5,price: Math.pow(10,47)});
 		
@@ -14511,8 +14519,9 @@ Game.Launch=function()
 		new Game.Achievement('All on deck',loc("Have <b>%1</b>.",loc("%1 cursor",LBeautify(900))),[0,19]);
 		new Game.Achievement('A round of applause',loc("Have <b>%1</b>.",loc("%1 cursor",LBeautify(1000)))+'<q>Boy, are my arms tired!</q>',[0,28]);
 		order=600000;
-		new Game.Achievement('Skid complex',loc("You aren\'t zkayns (probably). Be happy about it, because that means you aren\'t a skid.")+'<q>Bro thinks he\'s him.</q>',[35,2]);
-		
+		new Game.Achievement('Skid complex',loc("You aren\'t zkayns (probably). Be happy about it, because that means you aren\'t a skid.")+'<q>Bro thinks he\'s him.</q>',[35,2]);Game.last.pool='shadow';
+		order=600001;
+		new Game.Achievement('Where can I buy Cookie Clicker?',loc("Noclip toggled on.")+'<q>It\'s about time we got around to getting rid of all the casual \"where can I get xxx\" posts.</q>',[34,2]);Game.last.pool='shadow';
 		//end of achievements
 		
 		
@@ -16673,8 +16682,11 @@ Game.Launch=function()
 		Game.killShimmers();
 		
 		//booooo
-		Game.RuinTheFun=function(silent)
+		Game.RuinTheFun=function(silent,confirm)
 		{
+            if (!confirm) {
+				Game.Prompt('<id RuinTheFun><h3>'+loc("Ruin the fun")+'</h3><div class="block">'+tinyIcon([15,5])+'<div class="line"></div>'+loc("Do you REALLY want to ruin the fun?<br><small>You will lose your fun, your enjoyability, and your happiness!</small>")+'</div>',[[EN?'Yes!':loc("Yes"),'Game.ClosePrompt();Game.RuinTheFun(0,1);','float:left'],[loc("No"),0,'float:right']]);
+            } else {
 			Game.popups=0;
 			Game.SetAllUpgrades(1);
 			Game.SetAllAchievs(1);
@@ -16701,6 +16713,7 @@ Game.Launch=function()
 				Game.Notify('Thou doth ruineth the fun!','You\'re free. Free at last.',[11,5]);
 			}
 			return 'You feel a bitter taste in your mouth...';
+            }
 		}
 		
 		Game.SetAllUpgrades=function(on)
@@ -16774,21 +16787,25 @@ Game.Launch=function()
 			str+='<a class="option neato" '+Game.clickStr+'="Game.cookies/=10;Game.cookiesEarned/=10;">/10</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.cookies*=1000;Game.cookiesEarned*=1000;">x1k</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.cookies/=1000;Game.cookiesEarned/=1000;">/1k</a><br>';
+			str+='<a class="option neato" '+Game.clickStr+'="for (var i in Game.Objects){Game.Objects[i].buy(10);}">Buy 10 of all</a>';//for (var n=0;n<100;n++){for (var i in Game.Objects){Game.Objects[i].buy(1);}}
 			str+='<a class="option neato" '+Game.clickStr+'="for (var i in Game.Objects){Game.Objects[i].buy(100);}">Buy 100 of all</a>';//for (var n=0;n<100;n++){for (var i in Game.Objects){Game.Objects[i].buy(1);}}
+			str+='<a class="option neato" '+Game.clickStr+'="for (var i in Game.Objects){Game.Objects[i].sell(10);}">Sell 10 of all</a>';//for (var n=0;n<100;n++){for (var i in Game.Objects){Game.Objects[i].buy(1);}}
 			str+='<a class="option neato" '+Game.clickStr+'="for (var i in Game.Objects){Game.Objects[i].sell(100);}">Sell 100 of all</a><br>';
+            str+='<a class="option neato" '+Game.clickStr+'="Game.forceLumps=1;document.getElementById(`lumps`).style.display=`block`;">Enable lumps</a>';
+            str+='<a class="option neato" '+Game.clickStr+'="Game.forceLumps=-1;document.getElementById(`lumps`).style.display=`none`;">Disable lumps</a><br>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.lumps = 0;">0 lumps</a>';
-			str+='<a class="option neato" '+Game.clickStr+'="Game.lumps = 1;">1 lump</a>';
+			str+='<a class="option neato" '+Game.clickStr+'="Game.lumps = 1;">1 lump</a><br>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.gainLumps(-1);">-1 lumps</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.gainLumps(1);">+1 lumps</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.gainLumps(-10);">-10 lumps</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.gainLumps(10);">+10 lumps</a><br>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.lumps=parseInt(prompt(`Lumps`))">Set lumps</a><br>';
-			str+='<a class="option neato" '+Game.clickStr+'="for (var i in Game.Objects){Game.Objects[i].level=0;Game.Objects[i].onMinigame=false;Game.Objects[i].refresh();}Game.recalculateGains=1;">Reset levels</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.cookiesReset+=Game.HowManyCookiesReset((Game.heavenlyChips||1)*1000);Game.EarnHeavenlyChips(0,true);Game.recalculateGains=1;">HC x1k</a>';
-			str+='<a class="option neato" '+Game.clickStr+'="Game.cookiesReset=(Game.heavenlyChips<100?0:Game.HowManyCookiesReset(Math.floor(Game.heavenlyChips*0.001)));Game.cookiesReset=Math.max(Game.cookiesReset,0);Game.EarnHeavenlyChips(0,true);if (Game.cookiesReset<=0){Game.heavenlyChips=0;}Game.recalculateGains=1;">HC /1k</a>';//wee bit inaccurate
+			str+='<a class="option neato" '+Game.clickStr+'="Game.cookiesReset=(Game.heavenlyChips<100?0:Game.HowManyCookiesReset(Math.floor(Game.heavenlyChips*0.001)));Game.cookiesReset=Math.max(Game.cookiesReset,0);Game.EarnHeavenlyChips(0,true);if (Game.cookiesReset<=0){Game.heavenlyChips=0;}Game.recalculateGains=1;">HC /1k</a><br>';//wee bit inaccurate
+			str+='<a class="option neato" '+Game.clickStr+'="for (var i in Game.Objects){Game.Objects[i].level=0;Game.Objects[i].onMinigame=false;Game.Objects[i].refresh();}Game.recalculateGains=1;">Reset levels</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.cookiesEarned=0;Game.recalculateGains=1;">Reset cookies earned</a><br>';
 			str+='<div class="line"></div>';
-			str+='<a class="option warning" '+Game.clickStr+'="Game.RuinTheFun(1);">Ruin The Fun</a>';
+			str+='<a class="option warning" '+Game.clickStr+'="Game.RuinTheFun(1,0);">Ruin The Fun</a>';
 			str+='<a class="option warning" '+Game.clickStr+'="Game.SesameReset();">Wipe</a><br>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.GetAllDebugs();">All debugs</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.debugTimersOn=!Game.debugTimersOn;Game.OpenSesame();">Toggle timers ('+(Game.debugTimersOn?'On':'Off')+')</a><br>';
@@ -16806,7 +16823,8 @@ Game.Launch=function()
 			str+='<a class="option neato" '+Game.clickStr+'="alert(Game.seed);">Get seed</a><br>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.heralds=100;l(\'heraldsAmount\').textContent=Game.heralds;Game.externalDataLoaded=true;Game.recalculateGains=1;">Max heralds</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.heralds=0;l(\'heraldsAmount\').textContent=Game.heralds;Game.externalDataLoaded=true;Game.recalculateGains=1;">Min heralds</a>';
-			str+='<a class="option neato" '+Game.clickStr+'="Game.heralds=prompt(`Heralds`);l(\'heraldsAmount\').textContent=Game.heralds;Game.externalDataLoaded=true;Game.recalculateGains=1;">Set heralds</a><br>';
+			str+='<a class="option neato" '+Game.clickStr+'="Game.heralds=prompt(`Heralds`);l(\'heraldsAmount\').textContent=Game.heralds;Game.externalDataLoaded=true;Game.recalculateGains=1;">Set heralds</a>';
+			str+='<a class="option neato" '+Game.clickStr+'="Game.prefs.heretic++; Game.prefs.heretic=Game.prefs.heretic % 2;">Toggle force heralds ('+(Game.prefs.heretic?'On':'Off')+')</a><br>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.nest++; Game.nest=Game.nest % 2">Toggle nest</a>';
 			str+='<a class="option neato" '+Game.clickStr+'="Game.forcenest++; Game.forcenest=Game.forcenest % 2">Toggle force nest</a>';
 			str+='<div class="line"></div>';
