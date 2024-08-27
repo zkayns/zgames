@@ -277,4 +277,6 @@ Games.
 * Changed Slope link to try and fix the out of memory error
 * Added AdVenture Capitalist
 ### 2.2.3 (8.22.2024)
-* Updated CCX to 2.053
+* Updated CCX to 2.053x
+### 2.2.4 (8.27.2024)
+* Updated CCX to 2.054x
