@@ -1235,12 +1235,13 @@ var Game={};
             logic:function(){
             },
             save:function(){
-			return JSON.stringify({"foolsoption":Game.prefs.foolsoption, "heretic":Game.prefs.heretic});
+			return JSON.stringify({"foolsoption":Game.prefs.foolsoption, "heretic":Game.prefs.heretic, "goldenIndicator":Game.prefs.goldenIndicator});
 			},
             load:function(str){
                 var data=JSON.parse(str)
                 if (data.foolsoption) Game.prefs.foolsoption = data.foolsoption
                 if (data.heretic) Game.prefs.heretic = data.heretic
+                if (data.goldenIndicator) Game.prefs.goldenIndicator = data.goldenIndicator
             },
         })
 }
@@ -2359,6 +2360,7 @@ Game.Launch=function()
 			Game.prefs.notifs=0;//notifications fade faster
 			Game.prefs.foolsoption=0;//abril fool
             Game.prefs.heretic=0;
+            Game.prefs.goldenIndicator=0;
 			Game.prefs.animate=1;//animate buildings
 			Game.prefs.wobbly=1;//wobbly cookie
 			Game.prefs.monospace=0;//alt monospace font for cookies
@@ -6091,6 +6093,7 @@ Game.Launch=function()
 					
 					//set image
 					var bgPic=Game.resPath+'img/goldCookie.png';
+                    if (Game.prefs.goldenIndicator) document.querySelector("link[rel*='icon']").href = bgPic;
 					var picX=0;var picY=0;
 					
 					
@@ -6160,10 +6163,12 @@ Game.Launch=function()
 					//this line makes each golden cookie pulse in a unique way
 					if (Game.prefs.fancy) me.l.style.transform='rotate('+(Math.sin(me.id*0.69)*24+Math.sin(Game.T*(0.35+Math.sin(me.id*0.97)*0.15)+me.id/*+Math.sin(Game.T*0.07)*2+2*/)*(3+Math.sin(me.id*0.36)*2))+'deg) scale('+(me.sizeMult*(1+Math.sin(me.id*0.53)*0.2)*curve*(1+(0.06+Math.sin(me.id*0.41)*0.05)*(Math.sin(Game.T*(0.25+Math.sin(me.id*0.73)*0.15)+me.id))))+')';
 					me.life--;
-					if (me.life<=0) {this.missFunc(me);me.die();}
+					if (me.life<=0) {this.missFunc(me);me.die(); document.querySelector("link[rel*='icon']").href = "img/favicon.ico";
+}
 				},
 				popFunc:function(me)
 				{
+                    document.querySelector("link[rel*='icon']").href = "img/favicon.ico";
 					//get achievs and stats
 					if (me.spawnLead)
 					{
@@ -7434,6 +7439,7 @@ Game.Launch=function()
 							Game.WritePrefButton('notScary','notScaryButton',loc("Scary stuff")+OFF,loc("Scary stuff")+ON,0,1)+'<br>'+
 							Game.WritePrefButton('timeout','timeoutButton',loc("Sleep mode timeout")+ON,loc("Sleep mode timeout")+OFF)+'<label>('+loc("on slower computers, the game will put itself in sleep mode when it's inactive and starts to lag out; offline CpS production kicks in during sleep mode")+')</label><br>'+
 							Game.WritePrefButton('screenreader','screenreaderButton',loc("Screen reader mode")+ON,loc("Screen reader mode")+OFF,'Game.toSave=true;Game.toReload=true;')+'<label>('+loc("allows optimizations for screen readers; game will reload")+')</label><br>'+
+							Game.WritePrefButton('goldenIndicator','indicatorButton',loc("Golden cookie indicator")+ON,loc("Golden cookie indicator")+OFF,``)+'<label>('+loc("Makes the favicon golden when a golden cookie appears")+')</label><br>'+ 
 						'</div>'+
 						//'<div class="listing">'+Game.WritePrefButton('autosave','autosaveButton','Autosave ON','Autosave OFF')+'</div>'+
 						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.CheckModData();PlaySound(\'snd/tick.mp3\');">'+loc("Check mod data")+'</a><label>('+loc("view and delete save data created by mods")+')</label></div>':'')+
@@ -14906,7 +14912,10 @@ Game.Launch=function()
 				power:pow,
 				multCpS:pow,
 				max:true,
-				onDie:function(){if (Game.takeLoan) {Game.takeLoan(1,true);}},
+				onDie:function(){
+                    if (Game.takeLoan) {Game.takeLoan(1,true);};
+                    document.querySelector("link[rel*='icon']").href = "img/favicon.ico";
+                },
 			};
 		});
 		new Game.buffType('loan 1 interest',function(time,pow)
