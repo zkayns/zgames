@@ -280,3 +280,5 @@ Games.
 * Updated CCX to 2.053x
 ### 2.2.4 (8.27.2024)
 * Updated CCX to 2.054x
+### 2.2.5 (8.28.2024)
+* Updated CCX to 2.055x
