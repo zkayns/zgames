@@ -1224,6 +1224,18 @@ var Game={};
 	} else {
         Game.registerMod('ZGames',{
             init:function(){
+                // defining binds to mute and unmute all buildings
+	            AddEvent(document,'keydown',function(e){
+                    if (e.key=="u") {
+                        for (let i = 0; i < Game.ObjectsById.length; i++) {
+                            Game.ObjectsById[i].mute(1);
+                        }
+                    } else if (e.key=="U") {
+                        for (let i = 0; i < Game.ObjectsById.length; i++) {
+                            Game.ObjectsById[i].mute(0);
+                        } 
+                    }
+                });
                 function slot2save() {
                     Game.WriteSave();
 					localStorageSet(Game.SaveTo2,localStorageGet(Game.SaveTo));//aaand save
@@ -1243,6 +1255,8 @@ var Game={};
                 if (data.heretic) Game.prefs.heretic = data.heretic
                 if (data.goldenIndicator) Game.prefs.goldenIndicator = data.goldenIndicator
             },
+            draw:function(){
+            }
         })
 }
 	
@@ -5692,7 +5706,6 @@ Game.Launch=function()
 		AddEvent(window,'visibilitychange',function(e){
 			Game.keys=[];//reset all key pressed on visibility change (should help prevent ctrl still being down after ctrl-tab)
 		});
-		
 		/*=====================================================================================
 		CPS RECALCULATOR
 		=======================================================================================*/
