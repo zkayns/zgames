@@ -1247,13 +1247,14 @@ var Game={};
             logic:function(){
             },
             save:function(){
-			return JSON.stringify({"foolsoption":Game.prefs.foolsoption, "heretic":Game.prefs.heretic, "goldenIndicator":Game.prefs.goldenIndicator});
+			return JSON.stringify({"foolsoption":Game.prefs.foolsoption, "heretic":Game.prefs.heretic, "goldenIndicator":Game.prefs.goldenIndicator, "tipWobble":Game.prefs.tipWobble});
 			},
             load:function(str){
                 var data=JSON.parse(str)
                 if (data.foolsoption) Game.prefs.foolsoption = data.foolsoption
                 if (data.heretic) Game.prefs.heretic = data.heretic
                 if (data.goldenIndicator) Game.prefs.goldenIndicator = data.goldenIndicator
+                if (data.tipWobble) Game.prefs.tipWobble = data.tipWobble
             },
             draw:function(){
             }
@@ -2374,6 +2375,7 @@ Game.Launch=function()
 			Game.prefs.notifs=0;//notifications fade faster
 			Game.prefs.foolsoption=0;//abril fool
             Game.prefs.heretic=0;
+            Game.prefs.tipWobble=0;//jaja
             Game.prefs.goldenIndicator=0;
 			Game.prefs.animate=1;//animate buildings
 			Game.prefs.wobbly=1;//wobbly cookie
@@ -2660,7 +2662,7 @@ Game.Launch=function()
 		Game.tooltip.wobble=function()
 		{
 			//disabled because this effect doesn't look good with the slight slowdown it might or might not be causing.
-			if (false)
+			if (false || Game.prefs.tipWobble==1 /* nice variable name */)
 			{
 				this.tt.className='framed';
 				void this.tt.offsetWidth;
@@ -7453,6 +7455,7 @@ Game.Launch=function()
 							Game.WritePrefButton('timeout','timeoutButton',loc("Sleep mode timeout")+ON,loc("Sleep mode timeout")+OFF)+'<label>('+loc("on slower computers, the game will put itself in sleep mode when it's inactive and starts to lag out; offline CpS production kicks in during sleep mode")+')</label><br>'+
 							Game.WritePrefButton('screenreader','screenreaderButton',loc("Screen reader mode")+ON,loc("Screen reader mode")+OFF,'Game.toSave=true;Game.toReload=true;')+'<label>('+loc("allows optimizations for screen readers; game will reload")+')</label><br>'+
 							Game.WritePrefButton('goldenIndicator','indicatorButton',loc("Golden cookie indicator")+ON,loc("Golden cookie indicator")+OFF,``)+'<label>('+loc("Makes the favicon golden when a golden cookie appears")+')</label><br>'+ 
+							Game.WritePrefButton('tipWobble','wobbleButton',loc("Enable tooltip wobbling")+ON,loc("Enable tooltip wobbling")+OFF,`Game.toSave=true;Game.toReload=true;`)+'<label>('+loc("Enables the unused tooltip wobbling effect; game will reload")+')</label><br>'+ 
 						'</div>'+
 						//'<div class="listing">'+Game.WritePrefButton('autosave','autosaveButton','Autosave ON','Autosave OFF')+'</div>'+
 						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.CheckModData();PlaySound(\'snd/tick.mp3\');">'+loc("Check mod data")+'</a><label>('+loc("view and delete save data created by mods")+')</label></div>':'')+
