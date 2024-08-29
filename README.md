@@ -284,3 +284,4 @@ Games.
 * Updated CCX to 2.055x
 ### 2.2.6 (8.29.2024)
 * Updated CCX to 2.056x
+* Fixed version number on the internal accounts page (again)
