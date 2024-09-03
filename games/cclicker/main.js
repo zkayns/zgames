@@ -1224,37 +1224,64 @@ var Game={};
 	} else {
         Game.registerMod('ZGames',{
             init:function(){
+                Game.isInputFocused = function() { // returns 1 if an input is focused, otherwise 0
+                    if (document.activeElement.tagName !== "INPUT") return 0;
+                    return 1;
+                }
                 // defining binds to mute and unmute all buildings
 	            AddEvent(document,'keydown',function(e){
-                    if (e.key=="u") {
+                    if (e.key=="u" && !Game.isInputFocused()) { // mute
                         for (let i = 0; i < Game.ObjectsById.length; i++) {
                             Game.ObjectsById[i].mute(1);
                         }
-                    } else if (e.key=="U") {
+                    } else if (e.key=="U" && !Game.isInputFocused()) { // unmute
                         for (let i = 0; i < Game.ObjectsById.length; i++) {
                             Game.ObjectsById[i].mute(0);
                         } 
                     }
                 });
-                function slot2save() {
+                function checkTouch() {
+                    if (Game.Has(`Builder's touch`) && Game.buildersTouch == 0) { Game.toSave=true;Game.toReload=true; }
+                    if (!Game.Has(`Builder's touch`) && Game.buildersTouch == 1) { Game.toSave=true;Game.toReload=true; }
+                    if (Game.Has(`Builder's touch`)) { Game.buildersTouch = 1; } else { Game.buildersTouch = 0; }
+                }
+                checkTouch();
+                Game.registerHook('logic',function(){checkTouch()});
+                //Game.buildersTouch = 1;
+                /*function slot2save() {
                     Game.WriteSave();
 					localStorageSet(Game.SaveTo2,localStorageGet(Game.SaveTo));//aaand save
                 }
                 function slot2load() {
 					localStorageSet(Game.SaveTo2,localStorageGet(Game.SaveTo));//aaand save
-                }
+                }*/
             },
             logic:function(){
             },
             save:function(){
-			return JSON.stringify({"foolsoption":Game.prefs.foolsoption, "heretic":Game.prefs.heretic, "goldenIndicator":Game.prefs.goldenIndicator, "tipWobble":Game.prefs.tipWobble});
+			    return JSON.stringify({
+                    "foolsoption":Game.prefs.foolsoption, 
+                    "heretic":Game.prefs.heretic, 
+                    "goldenIndicator":Game.prefs.goldenIndicator, 
+                    "tipWobble":Game.prefs.tipWobble, 
+                    "autosaveTime":Game.prefs.autosaveTime,
+                    "buildersTouch":Game.buildersTouch
+                });
 			},
             load:function(str){
                 var data=JSON.parse(str)
-                if (data.foolsoption) Game.prefs.foolsoption = data.foolsoption
-                if (data.heretic) Game.prefs.heretic = data.heretic
-                if (data.goldenIndicator) Game.prefs.goldenIndicator = data.goldenIndicator
-                if (data.tipWobble) Game.prefs.tipWobble = data.tipWobble
+                // there's probably a cleaner way to do this but i can't be bothered
+                if (data.foolsoption) Game.prefs.foolsoption = data.foolsoption;
+                if (data.heretic) Game.prefs.heretic = data.heretic;
+                if (data.goldenIndicator) Game.prefs.goldenIndicator = data.goldenIndicator;
+                if (data.tipWobble) Game.prefs.tipWobble = data.tipWobble;
+                if (data.autosaveTime) Game.prefs.autosaveTime = data.autosaveTime;
+                if (data.buildersTouch) Game.buildersTouch = data.buildersTouch;
+                if (Game.buildersTouch == 1) {
+                    for (let i = 0; i < Game.ObjectsById.length; i++) {
+                        Game.ObjectsById[i].basePrice = 0;
+                    }
+                };
             },
             draw:function(){
             }
@@ -1392,6 +1419,17 @@ Game.Launch=function()
 	
 	Game.updateLog+=
 	
+	'</div><div class="subsection update">'+
+    '<div class="title">30/08/2024 - click this, ya punk!</div>'+
+	'<div class="listing">&bull; added quick binds for muting + unmuting all buildings at once</div>'+
+	'<div class="listing">&bull; added golden cookie indicator</div>'+
+	'<div class="listing">&bull; added an option to enable tooltip wobbling</div>'+
+	'<div class="listing">&bull; right clicking the big cookie disabled for convenience on trackpad</div>'+
+	'<div class="listing">&bull; added some amazing grandma names</div>'+
+	'<div class="listing">&bull; added a bunch of new cheats to dev tools</div>'+
+	'<div class="listing">&bull; sesame is enabled by default (because why not)</div>'+
+	'<div class="listing">&bull; added an option to disable the april fools texture changes</div>'+
+	'<div class="listing">&bull; new save format because i want to be different</div>'+
 	'</div><div class="subsection update">'+
 	'<div class="title">07/05/2023 - often imitated, never duplicated</div>'+
 	'<div class="listing">&bull; added the final, 20th building</div>'+
@@ -2256,6 +2294,7 @@ Game.Launch=function()
 		Game.resets=0;//reset counter
 		Game.lumps=-1;//sugar lumps
         Game.forceLumps=0;//scuffed
+        Game.buildersTouch=0;
 		Game.lumpsTotal=-1;//sugar lumps earned across all playthroughs (-1 means they haven't even started yet)
 		Game.lumpT=Date.now();//time when the current lump started forming
 		Game.lumpRefill=0;//time left before a sugar lump can be used again (on minigame refills etc) in logic frames
@@ -2364,6 +2403,7 @@ Game.Launch=function()
 			Game.prefs.particles=1;//particle effects : falling cookies etc
 			Game.prefs.numbers=1;//numbers that pop up when clicking the cookie
 			Game.prefs.autosave=1;//save the game every minute or so
+            Game.prefs.autosaveTime=30;
 			Game.prefs.autoupdate=1;//send an AJAX request to the server every 30 minutes (note : ignored)
 			Game.prefs.milk=1;//display milk
 			Game.prefs.fancy=1;//CSS shadow effects (might be heavy on some browsers)
@@ -2397,7 +2437,6 @@ Game.Launch=function()
 			Game.prefs.discordPresence=1;//if true and applicable, show game activity in Discord status
 		}
 		Game.DefaultPrefs();
-		
 		window.onbeforeunload=function(event)
 		{
 			if (Game.prefs && Game.prefs.warn)
@@ -2486,6 +2525,16 @@ Game.Launch=function()
 			Game.Prompt('<id NameBakery><h3>'+loc("Name your bakery")+'</h3><div class="block" style="text-align:center;">'+loc("What should your bakery's name be?")+'</div><div class="block"><input type="text" style="text-align:center;width:100%;" id="bakeryNameInput" value="'+Game.bakeryName+'"/></div>',[[loc("Confirm"),'if (l(\'bakeryNameInput\').value.length>0) {Game.bakeryNameSet(l(\'bakeryNameInput\').value);Game.Win(\'What\\\'s in a name\');Game.ClosePrompt();}'],[loc("Random"),'Game.bakeryNamePromptRandom();'],loc("Cancel")]);
 			l('bakeryNameInput').focus();
 			l('bakeryNameInput').select();
+		}
+        Game.autoSaveSet=function(time) {
+            Game.prefs.autosaveTime = parseInt(time);
+        }
+        Game.EditAutosave=function()
+		{
+			PlaySound('snd/tick.mp3');
+			Game.Prompt('<id AutosaveTime><h3>'+loc("Autosave time")+'</h3><div class="block" style="text-align:center;">'+loc("Set the time between autosaves")+'</div><div class="block"><input type="text" style="text-align:center;width:100%;" id="AutosaveInput" value="'+Game.prefs.autosaveTime+'"/></div>',[[loc("Confirm"),'if (l(\'AutosaveInput\').value.length>0) {Game.autoSaveSet(l(\'AutosaveInput\').value);Game.ClosePrompt();}'],loc("Cancel")]);
+			l('AutosaveTime').focus();
+			l('AutosaveTime').select();
 		}
 		Game.bakeryNamePromptRandom=function()
 		{
@@ -7459,6 +7508,7 @@ Game.Launch=function()
 						'</div>'+
 						//'<div class="listing">'+Game.WritePrefButton('autosave','autosaveButton','Autosave ON','Autosave OFF')+'</div>'+
 						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.CheckModData();PlaySound(\'snd/tick.mp3\');">'+loc("Check mod data")+'</a><label>('+loc("view and delete save data created by mods")+')</label></div>':'')+
+						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.EditAutosave();PlaySound(\'snd/tick.mp3\');">'+loc("Change autosave timer")+'</a><label>('+loc("change interval between autosaves")+')</label></div>':'')+
 						
 						'</div>'+
 					'</div>'+
@@ -8504,7 +8554,7 @@ Game.Launch=function()
 				this.desc=loc(FindLocStringByPart(this.name+' quote'));
 			}
 			this.basePrice=price;
-			this.price=this.basePrice;
+			this.price=this.basePrice; //COME BACKK
 			this.bulkPrice=this.price;
 			this.cps=cps;
 			this.baseCps=this.cps;
@@ -8535,7 +8585,7 @@ Game.Launch=function()
 				this.price=this.basePrice;
 				this.bulkPrice=this.price;
 			}
-			
+			if (Game.buildersTouch) { this.price=0; this.bulkPrice=0; this.basePrice=0; }
 			this.totalCookies=0;
 			this.storedCps=0;
 			this.storedTotalCps=0;
@@ -8558,7 +8608,6 @@ Game.Launch=function()
 			this.bought=0;
 			this.highest=0;
 			this.free=0;
-			
 			this.eachFrame=0;
 			
 			this.minigameUrl=0;//if this is defined, load the specified script if the building's level is at least 1
@@ -9478,6 +9527,7 @@ Game.Launch=function()
 		}
 		
 		//define objects
+        Game.defineObjects=function() {
 		new Game.Object('Cursor','cursor|cursors|clicked|[X] extra finger|[X] extra fingers','Autoclicks once every 10 seconds.',0,0,{},15,function(me){
 			var add=0;
 			if (Game.Has('Thousand fingers')) add+=		0.1;
@@ -9798,6 +9848,8 @@ Game.Launch=function()
 			Game.UnlockTiered(this);
 			if (this.amount>=Game.SpecialGrandmaUnlock && Game.Objects['Grandma'].amount>0) Game.Unlock(this.grandma.name);
 		});
+        };
+        Game.defineObjects();
 		Game.YouCustomizer={};
 		Game.YouCustomizer.render=function()
 		{
@@ -14544,6 +14596,9 @@ Game.Launch=function()
 		new Game.Achievement('Skid complex',loc("You aren\'t zkayns (probably). Be happy about it, because that means you aren\'t a skid.")+'<q>Bro thinks he\'s him.</q>',[35,2]);Game.last.pool='shadow';
 		order=600001;
 		new Game.Achievement('Where can I buy Cookie Clicker?',loc("Noclip toggled on.")+'<q>It\'s about time we got around to getting rid of all the casual \"where can I get xxx\" posts.</q>',[34,2]);Game.last.pool='shadow';
+        order=69420;
+		new Game.Upgrade(`Builder's touch`,loc("All buildings miraculously become free! (reloads the game)")+'<q>Sucks for Britain!</q>',7,[16,16]);//nobody can stop me from defining an upgrade here, cry about it
+		Game.last.pool='debug';
 		//end of achievements
 		
 		
@@ -17464,8 +17519,7 @@ Game.Launch=function()
 		Game.Scroll=0;
 		Game.mouseMoved=0;
 		Game.CanClick=1;
-		
-		if ((Game.toSave || (Game.T%(Game.fps*30)==0 && Game.T>Game.fps*10 && Game.prefs.autosave)) && !Game.OnAscend)
+		if ((Game.toSave || (Game.T%(Game.fps*Game.prefs.autosaveTime)==0 && Game.T>Game.fps*10 && Game.prefs.autosave)) && !Game.OnAscend)
 		{
 			//check if we can save : no minigames are loading
 			var canSave=true;
