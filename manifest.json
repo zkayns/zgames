@@ -3,12 +3,12 @@
   "name": "ZGames",
   "icons": [
     {
-      "src": "/images/logo.png",
+      "src": "https://zkayns.github.io/zgames/images/logo.png",
       "sizes": "240x240",
       "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://zkayns.github.io/zgames",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#000000"
