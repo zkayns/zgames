@@ -287,3 +287,5 @@ Games.
 * Fixed version number on the internal accounts page (again)
 ### 2.2.7 (9.3.2024)
 * Updated CCX to 2.057x
+### 2.2.8 (9.9.2024)
+* Added manifest.json
