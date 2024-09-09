@@ -289,3 +289,5 @@ Games.
 * Updated CCX to 2.057x
 ### 2.2.8 (9.9.2024)
 * Added manifest.json
+### 2.2.9 (9.9.2024)
+* Added manifest.json for Slope
