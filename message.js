@@ -254,7 +254,7 @@ if (date.getMonth()+1 == 1 && date.getDate() == 17) {
 if (!politics) {
   document.getElementById("message").innerHTML = message;
 } else {
-  document.getElementById("message").innerHTML = "Vote S.W.A.G Party. Zach is a crook!";
+  document.getElementById("message").innerHTML = "This is the greatest rig of all time";
 }
 // shh snore mimimimi
 var secretchooser = Math.random()
