@@ -936,7 +936,7 @@ var PlayMusicSound=function(url,vol,pitchVar)
 	PlaySound(url,(vol||1)-(Music?10:0),pitchVar);
 }
 
-Music=false;
+Music=true;
 PlayCue=function(cue,arg)
 {
 	if (Music && Game.jukebox.trackAuto) Music.cue(cue,arg);
@@ -1244,7 +1244,15 @@ var Game={};
                     if (Game.Has(`Builder's touch`)) { Game.buildersTouch = 1; } else { Game.buildersTouch = 0; }
                 }
                 checkTouch();
+                var clicked = 0;
+                document.addEventListener('click',function(e){
+                    if (clicked == 0) {
+                        PlaySound('music/click.mp3',1,0,1);
+                    }
+                    clicked = 1;
+                })
                 Game.registerHook('logic',function(){checkTouch()});
+                Game.registerHook('logic',function(){});
                 //Game.buildersTouch = 1;
                 /*function slot2save() {
                     Game.WriteSave();
@@ -7504,21 +7512,22 @@ Game.Launch=function()
 							Game.WritePrefButton('tipWobble','wobbleButton',loc("Enable tooltip wobbling")+ON,loc("Enable tooltip wobbling")+OFF,`Game.toSave=true;Game.toReload=true;`)+'<label>('+loc("Enables the unused tooltip wobbling effect; game will reload")+')</label><br>'+ 
 						'</div>'+
 						//'<div class="listing">'+Game.WritePrefButton('autosave','autosaveButton','Autosave ON','Autosave OFF')+'</div>'+
-						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.CheckModData();PlaySound(\'snd/tick.mp3\');">'+loc("Check mod data")+'</a><label>('+loc("view and delete save data created by mods")+')</label></div>':'')+
 						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.EditAutosave();PlaySound(\'snd/tick.mp3\');">'+loc("Change autosave timer")+'</a><label>('+loc("change interval between autosaves")+')</label></div>':'')+
 						
 						'</div>'+
 					'</div>'+
 				'</div>';
 				
-				if (App && App.writeModUI)
+				if (true)
 				{
 					str+=
 						'<div class="block" style="padding:0px;margin:8px 4px;">'+
 							'<div class="subsection" style="padding:0px;">'+
 							
 							'<div class="title">'+loc("Mods")+'</div>'+
-							App.writeModUI()+
+								`<div style="text-align:center;">
+		<a style="text-align:center;margin:4px;" class="option smallFancyButton" ${Game.clickStr}="Game.CheckModData();PlaySound(\'snd/tick.mp3\');">${loc("Check mod data")}</a>
+	</div>`+
 							'</div>'+
 						'</div>';
 				}
