@@ -9,10 +9,10 @@ Have a nice trip, and stay safe.
 Spoilers ahead.
 http://orteil.dashnet.org
 */
-// thank you for not use async - zkayns
 /*=====================================================================================
 MISC HELPER FUNCTIONS
 =======================================================================================*/
+// i've mutilated main.js so much at this point that CCSE fails to load LOL
 function l(what) {return document.getElementById(what);}
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
 
@@ -1083,7 +1083,6 @@ var Game={};
 				//if (mod.load && Game.modSaveData[mod.id]) mod.load(Game.modSaveData[mod.id]);
 			}
 		}
-		if (/*!App && Game.sortedMods.length>0*/1) Game.Win('Third-party');
 	}
 	Game.registerHook=function(hook,func)
 	{
@@ -1188,7 +1187,6 @@ var Game={};
 		Game.Prompt('<id ModData><h3>'+loc("Mod data")+'</h3><div class="block">'+tinyIcon([16,5])+'<div></div>'+loc("These are the mods present in your save data. You may delete some of this data to make your save file smaller.")+'</div><div class="block" style="font-size:11px;">'+str+'</div>',[loc("Back")]);
 	}
 	Game.LoadMod=LoadScript;//loads the mod at the given URL
-	
 	if (false)
 	{
 		//EXAMPLE MOD
@@ -6160,7 +6158,6 @@ Game.Launch=function()
                     if (Game.prefs.goldenIndicator) document.querySelector("link[rel*='icon']").href = bgPic;
 					var picX=0;var picY=0;
 					
-					
 					if ((!me.forceObj || !me.forceObj.noWrath) && ((me.forceObj && me.forceObj.wrath) || (Game.elderWrath==1 && Math.random()<1/3) || (Game.elderWrath==2 && Math.random()<2/3) || (Game.elderWrath==3) || (Game.hasGod && Game.hasGod('scorn'))))
 					{
 						me.wrath=1;
@@ -6201,7 +6198,7 @@ Game.Launch=function()
 					me.l.style.opacity='0';
 					me.l.style.display='block';
 					me.l.setAttribute('alt',loc(me.wrath?"Wrath cookie":"Golden cookie"));
-					
+					if (me.wrath) document.querySelector("link[rel*='icon']").href = "img/wrathCookie.png";
 					me.life=1;//the cookie's current progression through its lifespan (in frames)
 					me.dur=13;//duration; the cookie's lifespan in seconds before it despawns
 					
@@ -7476,7 +7473,7 @@ Game.Launch=function()
 						((App && App.writeCloudUI)?App.writeCloudUI():'')+
 						'<div class="listing">'+
 							Game.WriteSlider('volumeSlider',loc("Volume"),'[$]%',function(){return Game.volume;},'Game.setVolume(Math.round(l(\'volumeSlider\').value));l(\'volumeSliderRightText\').innerHTML=Game.volume+\'%\';')+
-							(App?Game.WriteSlider('volumeMusicSlider',loc("Volume (music)"),'[$]%',function(){return Game.volumeMusic;},'Game.setVolumeMusic(Math.round(l(\'volumeMusicSlider\').value));l(\'volumeMusicSliderRightText\').innerHTML=Game.volumeMusic+\'%\';'):'')+
+							(true?Game.WriteSlider('volumeMusicSlider',loc("Volume (music)"),'[$]%',function(){return Game.volumeMusic;},'Game.setVolumeMusic(Math.round(l(\'volumeMusicSlider\').value));l(\'volumeMusicSliderRightText\').innerHTML=Game.volumeMusic+\'%\';'):'')+
 							/*(App?Game.WriteSlider('wubMusicSlider',loc("Wub"),'[$]%',function(){return 100;},'Game.setWubMusic(Math.round(l(\'wubMusicSlider\').value));l(\'wubMusicSliderRightText\').innerHTML=(Math.round(l(\'wubMusicSlider\').value))+\'%\';'):'')+*/
 							'<br>'+
 							(App?Game.WritePrefButton('bgMusic','bgMusicButton',loc("Music in background")+ON,loc("Music in background")+OFF,'')+'<label>('+loc("music will keep playing even when the game window isn't focused")+')</label><br>':'')+
@@ -8705,7 +8702,7 @@ Game.Launch=function()
 				if (success) {PlaySound('snd/buy'+choose([1,2,3,4])+'.mp3',0.75);this.refresh();}
 				//if (moni>0 && amount>1) Game.Notify(this.name,'Bought <b>'+bought+'</b> for '+Beautify(moni)+' cookies','',2);
 			}
-			this.sell=function(amount,bypass)
+			this.sell=function(amount,bypass,returncash=1)
 			{
 				var success=0;
 				var moni=0;
@@ -8721,7 +8718,7 @@ Game.Launch=function()
 					{
 						sold++;
 						moni+=price;
-						Game.cookies+=price;
+						if (returncash>0) Game.cookies+=price;
 						Game.cookiesEarned=Math.max(Game.cookies,Game.cookiesEarned);//this is to avoid players getting the cheater achievement when selling buildings that have a higher price than they used to
 						this.amount--;
 						price=this.getPrice();
@@ -14653,6 +14650,7 @@ Game.Launch=function()
 				buff.id=Game.buffsI;
 				
 				//create dom
+                //BUFF DOM BROOOO
 				Game.buffsL.innerHTML=Game.buffsL.innerHTML+'<div id="buff'+buff.id+'" class="crate enabled buff" '+(buff.desc?Game.getTooltip(
 					'<div class="prompt" style="min-width:200px;text-align:center;font-size:11px;margin:8px 0px;" id="tooltipBuff"><h3>'+buff.dname+'</h3><div class="line"></div>'+buff.desc+'</div>'
 				,'left',true):'')+' style="opacity:1;float:none;display:block;'+writeIcon(buff.icon)+'"></div>';
@@ -17578,6 +17576,7 @@ Game.Launch=function()
 			
 			if (Game.prefs.monospace) str='<span class="monospace">'+str+'</span>';
 			str=str+'<div id="cookiesPerSecond"'+(Game.cpsSucked>0?' class="wrinkled"':'')+'>'+loc("per second:")+' '+Beautify(Game.cookiesPs*(1-Game.cpsSucked),1)+'</div>';
+			str=str+'<div id="cookiesPerClick">'+loc("per click:")+' '+Game.computedMouseCps+'</div>';
 			l('cookies').innerHTML=str;
 			Timer.track('cookie amount');
 			
