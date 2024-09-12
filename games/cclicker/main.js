@@ -17576,7 +17576,7 @@ Game.Launch=function()
 			
 			if (Game.prefs.monospace) str='<span class="monospace">'+str+'</span>';
 			str=str+'<div id="cookiesPerSecond"'+(Game.cpsSucked>0?' class="wrinkled"':'')+'>'+loc("per second:")+' '+Beautify(Game.cookiesPs*(1-Game.cpsSucked),1)+'</div>';
-			str=str+'<div id="cookiesPerClick">'+loc("per click:")+' '+Game.computedMouseCps+'</div>';
+			str=str+'<div id="cookiesPerClick">'+loc("per click:")+' '+Beautify(Game.computedMouseCps,1)+'</div>';
 			l('cookies').innerHTML=str;
 			Timer.track('cookie amount');
 			
