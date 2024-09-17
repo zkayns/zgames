@@ -293,3 +293,5 @@ Games.
 * Added manifest.json for Slope
 ### 2.3.0 (9.12.2024)
 * Updated CCX to 2.058x
+### 2.3.1 (9.17.2024)
+* Added Crossy Road
