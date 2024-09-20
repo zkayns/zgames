@@ -1253,14 +1253,6 @@ var Game={};
                 })
                 Game.registerHook('logic',function(){checkTouch()});
                 Game.registerHook('logic',function(){});
-                //Game.buildersTouch = 1;
-                /*function slot2save() {
-                    Game.WriteSave();
-					localStorageSet(Game.SaveTo2,localStorageGet(Game.SaveTo));//aaand save
-                }
-                function slot2load() {
-					localStorageSet(Game.SaveTo2,localStorageGet(Game.SaveTo));//aaand save
-                }*/
             },
             logic:function(){
             },
@@ -7418,7 +7410,6 @@ Game.Launch=function()
 				(firstLaunch?'':'<div style="font-size:11px;opacity:0.5;margin-bottom:12px;">('+loc("note: this will save and reload your game")+')</div>')+
 				str,
 				(firstLaunch?0:[loc("Cancel")]));
-			
 			for (var i in Langs)
 			{
 				var lang=Langs[i];
@@ -7513,11 +7504,11 @@ Game.Launch=function()
 						'</div>'+
 						//'<div class="listing">'+Game.WritePrefButton('autosave','autosaveButton','Autosave ON','Autosave OFF')+'</div>'+
 						(!App?'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.EditAutosave();PlaySound(\'snd/tick.mp3\');">'+loc("Change autosave timer")+'</a><label>('+loc("change interval between autosaves")+')</label></div>':'')+
-						
+						'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.LoadMod(`https://icehawk78.github.io/FrozenCookies/frozen_cookies.js`)">'+loc("Load Frozen Cookies")+'</a><label>('+loc("loads the Frozen Cookies mod")+')</label></div>'+
+						'<div class="listing"><a class="option smallFancyButton" '+Game.clickStr+'="Game.LoadMod(`https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js`);">'+loc("Load Cookie Monster")+'</a><label>('+loc("loads the Cookie Monster mod")+')</label></div>'+
 						'</div>'+
 					'</div>'+
 				'</div>';
-				
 				if (true)
 				{
 					str+=
@@ -16926,7 +16917,6 @@ Game.Launch=function()
 			str+='</div>';
 			
 			l('devConsole').innerHTML=str;
-			
 			if (!l('fpsGraph'))
 			{
 				var div=document.createElement('canvas');
