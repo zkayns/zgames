@@ -297,3 +297,5 @@ Games.
 * Added Crossy Road
 ### 2.3.2 (9.20.2024)
 * Added Soccer Random
+### 2.3.3 (9.20.2024)
+* Updated CCX to 2.059x
