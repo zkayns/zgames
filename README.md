@@ -301,3 +301,7 @@ Games.
 * Updated CCX to 2.059x
 ### 2.3.4 (9.30.2024)
 * Added Chrome Dino
+### 2.3.5 (9.30.2024)
+* Added Google Snake
+* Changed Chrome Dino icon
+* Removed a backslash
