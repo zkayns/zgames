@@ -299,3 +299,5 @@ Games.
 * Added Soccer Random
 ### 2.3.3 (9.20.2024)
 * Updated CCX to 2.059x
+### 2.3.4 (9.30.2024)
+* Added Chrome Dino
