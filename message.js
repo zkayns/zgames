@@ -1,7 +1,7 @@
 // hey! this is where all the message stuff happens.
 // 8/2/2023 update: added comments to make sure stuff is organized
 // initialize date
-var politics = true;
+var politics = false; // ynw melly killed the politics
 var date = new Date();
 var haha = ["ZGames shuts down on ", date.getMonth()+1, "/", date.getDate()+1, "/", date.getFullYear()];
 // splash texts
