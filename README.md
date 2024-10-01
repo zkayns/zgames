@@ -305,3 +305,5 @@ Games.
 * Added Google Snake
 * Changed Chrome Dino icon
 * Removed a backslash
+### 2.3.6 (10.1.2024)
+* Splash texts are (unfortunately) back to normal
