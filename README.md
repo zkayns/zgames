@@ -309,3 +309,5 @@ Games.
 * Splash texts are (unfortunately) back to normal
 ### 2.3.7 (10.1.2024)
 * Added A Small World Cup
+### 2.3.8 (10.2.2024)
+* Added Eggy Car
