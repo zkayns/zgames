@@ -311,3 +311,5 @@ Games.
 * Added A Small World Cup
 ### 2.3.8 (10.2.2024)
 * Added Eggy Car
+### 2.3.9 (12.11.2024) - Seeecret Wednesday 1!
+* Added VVVVVV
