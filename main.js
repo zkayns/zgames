@@ -247,6 +247,10 @@ function share() {
 /* color references
 error #eb3440
 */
+tippy('a', {
+    content: (reference) => reference.firstElementChild.alt,
+    animation: 'scale-subtle',
+});
 function toggleConsole() {
   if (cons.style.display === "none") {
     cons.style.display = "block";
