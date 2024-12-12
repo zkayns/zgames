@@ -313,3 +313,4 @@ Games.
 * Added Eggy Car
 ### 2.3.9 (12.11.2024) - Seeecret Wednesday 1!
 * Added VVVVVV
+* Fixed 1v1.LOL
