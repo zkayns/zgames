@@ -247,8 +247,8 @@ function share() {
 /* color references
 error #eb3440
 */
-tippy('a', {
-    content: (reference) => reference.firstElementChild.alt,
+tippy('img', {
+    content: (reference) => reference.alt,
     animation: 'scale-subtle',
 });
 function toggleConsole() {
