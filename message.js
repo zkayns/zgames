@@ -185,7 +185,9 @@ const messages = [
   "lets pretend the old splashes aren't trash (they are)",
   "What up Reddit, it's Kendrick Lamar",
   "Pro tip: install PaperMC. The huzz will LOVE YOU.",
-  "holy crap lois! he actually fixed 1v1!"
+  "holy crap lois! he actually fixed 1v1!",
+  "no updates november",
+  "guyz play zmc zeagler.glitch.me!!"
 ]
 // title messages (no way)
 const titlemessages = [
