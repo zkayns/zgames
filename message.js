@@ -183,7 +183,9 @@ const messages = [
   "play ages of conflict awesome it's a good game",
   "reminder to check for updates (they are good)",
   "lets pretend the old splashes aren't trash (they are)",
-  "What up Reddit, it's Kendrick Lamar"
+  "What up Reddit, it's Kendrick Lamar",
+  "Pro tip: install PaperMC. The huzz will LOVE YOU.",
+  "holy crap lois! he actually fixed 1v1!"
 ]
 // title messages (no way)
 const titlemessages = [
