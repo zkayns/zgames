@@ -315,3 +315,4 @@ Games.
 * Added VVVVVV
 * Fixed 1v1.LOL
 * Fixed tooltips
+* Updated Ruffle to nightly build 2024_12_12
