@@ -319,4 +319,3 @@ Games.
 * Added more splash texts
 ### 2.4.0 (1.17.2024) - Seeecret Friday 5!
 * Updated Ruffle
-* Added Drift Hunters
