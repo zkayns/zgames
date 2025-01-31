@@ -317,7 +317,7 @@ Games.
 * Fixed tooltips
 * Updated Ruffle to nightly build 2024_12_12
 * Added more splash texts
-### 2.4.0 (1.17.2024) - Seeecret Friday 5!
+### 2.4.0 (1.17.2025) - Seeecret Friday 5!
 * Updated Ruffle
 ### 2.4.1 (1.31.2025) - Seeecret Friday 6!
 * Added Jelly Truck
