@@ -159,11 +159,7 @@ const injectCSS = css => {
 function updateTime() {
     var d = new Date()
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    if (d.getHours() >= 12) {
-        var ampm = "PM"
-    } else if (d.getHours() < 12) {
-        var ampm = "AM"
-    }
+    (d.getHours() >= 12) ? var ampm = "PM" : var ampm = "AM";
     var seconds = String(d.getSeconds()).padStart(2, "0")
     var minutes = String(d.getMinutes()).padStart(2, "0")
     if (d.getHours() == 0) {
