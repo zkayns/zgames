@@ -178,6 +178,7 @@ function updateTime() {
     } else {
         var hours = d.getHours()
     } 
+    var hours = parseInt(String(hours).padStart(2, '0'))
     var monthAsName = months[d.getMonth()]
     var timeformatted = [hours % 13, ":", minutes, ":", seconds, " ", ampm, ", ", monthAsName, " ", d.getDate(), ", ", d.getFullYear()].join("")
     time.innerHTML = timeformatted
