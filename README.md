@@ -321,3 +321,6 @@ Games.
 * Updated Ruffle
 ### 2.4.1 (1.31.2025) - Seeecret Friday 6!
 * Added Jelly Truck
+### 2.4.2 (2.5.2025) - Seeecret Wednesday 2!
+* Polished code
+* Added bind to toggle console
