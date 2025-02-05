@@ -6,8 +6,7 @@ var keyspressed2 = [];
 var version = document.querySelector(".version").innerHTML.split("v")[1].substring(0,5); //dont make it more than 5 characters or you're stupid btw
 //alert(version)
 function dlpage() {
-    var link = 'https://github.com/zkayns/zgames/archive/refs/heads/main.zip'
-    document.location.href = link
+    document.location.href = 'https://github.com/zkayns/zgames/archive/refs/heads/main.zip'
 }
 function popups() {
     alert(["Popups are blocked. You can unblock popups by going to chrome://settings/content/popups, pressing the \"Add\" button next to \"Allowed to send pop-ups and use redirects\", entering ", document.location.href, " under \"Site\", and pressing \"Add\"."].join(""))
@@ -23,14 +22,12 @@ async function getVersion() {
   let y = await x.text();
   if (y != version) {
       if (document.location.href.includes("file:///")) { // im not indenting this LOLLLL
-      var conf = confirm("A new update is available. Would you like to download it?");
-      if (conf == true) {
-          var link = 'https://github.com/zkayns/zgames/archive/refs/heads/main.zip'
-          try { window.open(link, "_blank").focus(); }
-          catch (e) /* I HATE IDIOTS AND STUPID PEOPLE */{ popups() }
-      } else {
-          //why would you cancel jaja
-      }
+          var conf = confirm("A new update is available. Would you like to download it?");
+          if (conf == true) {
+              var link = 'https://github.com/zkayns/zgames/archive/refs/heads/main.zip'
+              try { window.open(link, "_blank").focus(); }
+              catch (e) /* I HATE IDIOTS AND STUPID PEOPLE */{ popups() }
+          }
     }
   };
 }
