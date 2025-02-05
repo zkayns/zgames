@@ -133,7 +133,7 @@ $(".emergency").on('keyup', function (e) {
     }
 });
 $("body").on('keyup', function(e) {
-    if (e.key === '`') toggleConsole();
+    if (e.key === '`' && !$("input").is(":focus")) toggleConsole();
 });
 setInterval(updateLogs, 10)
 setInterval(updateTime, 10)
