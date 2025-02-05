@@ -132,6 +132,9 @@ $(".emergency").on('keyup', function (e) {
         localStorage.setItem("emergency", emergencybox.value)
     }
 });
+$("body").on('keyup', function(e) {
+    if (e.key === '`') toggleConsole();
+});
 setInterval(updateLogs, 10)
 setInterval(updateTime, 10)
 function updateLogs() {
