@@ -161,16 +161,8 @@ function updateTime() {
     } else if (d.getHours() < 12) {
         var ampm = "AM"
     }
-    if (d.getSeconds() < 10) {
-        var seconds = "0" + d.getSeconds()
-    } else {
-        var seconds = d.getSeconds()
-    }
-    if (d.getMinutes() < 10) {
-        var minutes = "0" + d.getMinutes()
-    } else {
-        var minutes = d.getMinutes()
-    }
+    var seconds = String(d.getSeconds()).padStart(2, "0")
+    var minutes = String(d.getMinutes()).padStart(2, "0")
     if (d.getHours() == 0) {
         var hours = 12
     } else if (d.getHours() >= 13) {
@@ -178,7 +170,6 @@ function updateTime() {
     } else {
         var hours = d.getHours()
     } 
-    var hours = parseInt(String(hours).padStart(2, '0'))
     var monthAsName = months[d.getMonth()]
     var timeformatted = [hours % 13, ":", minutes, ":", seconds, " ", ampm, ", ", monthAsName, " ", d.getDate(), ", ", d.getFullYear()].join("")
     time.innerHTML = timeformatted
