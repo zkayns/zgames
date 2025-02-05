@@ -21,7 +21,7 @@ async function getVersion() {
   let x = await fetch("https://zgames-telemetry.glitch.me/version.php");
   let y = await x.text();
   if (y != version) {
-      if (document.location.href.includes("file:///")) { // im not indenting this LOLLLL
+      if (document.location.href.includes("file:///")) { // im indenting this LOLLLL
           var conf = confirm("A new update is available. Would you like to download it?");
           if (conf == true) {
               var link = 'https://github.com/zkayns/zgames/archive/refs/heads/main.zip'
@@ -154,30 +154,31 @@ const injectCSS = css => {
   return el;
 };
 function updateTime() {
-    var d = new Date()
-    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    (d.getHours() >= 12) ? var ampm = "PM" : var ampm = "AM";
-    var seconds = String(d.getSeconds()).padStart(2, "0")
-    var minutes = String(d.getMinutes()).padStart(2, "0")
+    var d = new Date();
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var ampm = "AM";
+    var seconds = String(d.getSeconds()).padStart(2, "0");
+    var minutes = String(d.getMinutes()).padStart(2, "0");
     if (d.getHours() == 0) {
         var hours = 12
     } else if (d.getHours() >= 13) {
-        var hours = d.getHours() - 12
+        ampm = "PM";
+        var hours = d.getHours() - 12;
     } else {
-        var hours = d.getHours()
+        var hours = d.getHours();
     } 
-    var monthAsName = months[d.getMonth()]
-    var timeformatted = [hours % 13, ":", minutes, ":", seconds, " ", ampm, ", ", monthAsName, " ", d.getDate(), ", ", d.getFullYear()].join("")
-    time.innerHTML = timeformatted
+    var monthAsName = months[d.getMonth()];
+    var timeformatted = [hours % 13, ":", minutes, ":", seconds, " ", ampm, ", ", monthAsName, " ", d.getDate(), ", ", d.getFullYear()].join("");
+    time.innerHTML = timeformatted;
 }
 function savejs() {
-    localStorage.setItem("autoload", customjs.value.toString())
+    localStorage.setItem("autoload", customjs.value.toString());
 }
 if (localStorage.getItem("autoload")) {
-    eval(localStorage.getItem("autoload"))
+    eval(localStorage.getItem("autoload"));
 }
 function clearjs() {
-    localStorage.removeItem("autoload")
+    localStorage.removeItem("autoload");
 }
 function getjs() {
     customjs.value = localStorage.getItem("autoload")
