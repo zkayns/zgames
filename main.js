@@ -161,12 +161,13 @@ function updateTime() {
     var minutes = String(d.getMinutes()).padStart(2, "0");
     if (d.getHours() == 0) {
         var hours = 12
-    } else if (d.getHours() > 13) {
+    } else if (d.getHours() >= 13) {
         ampm = "PM";
         var hours = d.getHours() - 12;
     } else {
         var hours = d.getHours();
     } 
+    if (d.getHours() == 12) ampm = "PM";
     var monthAsName = months[d.getMonth()];
     var timeformatted = [hours % 13, ":", minutes, ":", seconds, " ", ampm, ", ", monthAsName, " ", d.getDate(), ", ", d.getFullYear()].join("");
     time.innerHTML = timeformatted;
