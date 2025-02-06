@@ -324,3 +324,5 @@ Games.
 ### 2.4.2 (2.5.2025) - Seeecret Wednesday 2!
 * Polished code
 * Added bind to toggle console
+### 2.4.3 (2.6.2025)
+* Added DOOM
