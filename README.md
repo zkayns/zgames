@@ -326,4 +326,5 @@ Games.
 * Added bind to toggle console
 ### 2.4.3 (2.6.2025)
 * Added DOOM
-* Fixed 12AM being displayed on the clock instead of 12PM at noon.
+* Fixed 12AM being displayed on the clock instead of 12PM at noon
+* Added warning for users using the Emergency feature without an emergency URL set
