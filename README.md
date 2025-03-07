@@ -329,3 +329,6 @@ Games.
 * Added Run 3
 * Fixed 12AM being displayed on the clock instead of 12PM at noon
 * Added warning for users using the Emergency feature without an emergency URL set
+### 2.4.4 (3.7.2025) - Seeecret Friday 7!
+* Updated Ruffle
+* Added Moto X3M Spooky Land
