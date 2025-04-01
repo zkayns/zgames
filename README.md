@@ -332,3 +332,7 @@ Games.
 ### 2.4.4 (3.7.2025) - Seeecret Friday 7!
 * Updated Ruffle
 * Added Moto X3M Spooky Land
+### 2.4.5 (4.1.2025) - April Fools
+* Added Granny
+* Moved some games
+* Removed auto-updater since it's useless
