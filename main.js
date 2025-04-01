@@ -31,7 +31,6 @@ async function getVersion() {
     }
   };
 }
-getVersion()
 if (console.everything === undefined) {
   console.everything = [];
   function TS(tz){
