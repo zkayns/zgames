@@ -336,3 +336,7 @@ Games.
 * Added Granny
 * Moved some games
 * Removed auto-updater since it's useless
+### 2.4.6 (4.2.2025) - Seeecret Wednesday 3!
+* Fixed Tunnel Rush
+* Fixed A Small World Cup
+* Fixed Snow Rider 3D
