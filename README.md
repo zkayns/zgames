@@ -350,4 +350,6 @@ Games.
 * Fixed Getaway Shootout
 * Fixed Moto X3M 6: Spooky Land
 * Fixed Idle Breakout
+* Fixed Crossy Road
+* Fixed A Dance of Fire and Ice
 * Fixed the incorrectly spelled AdVenture Capitalist tooltip
