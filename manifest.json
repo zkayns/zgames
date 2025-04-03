@@ -15,7 +15,7 @@
       "name": "Open Cloaked",
       "short_name": "Cloak",
       "description": "Opens ZGames cloaked.",
-      "url": "/cloak",
+      "url": "./cloak",
     },
   ],
   "display": "standalone",
