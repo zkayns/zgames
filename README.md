@@ -349,4 +349,5 @@ Games.
 * Fixed Soccer Random
 * Fixed Getaway Shootout
 * Fixed Moto X3M 6: Spooky Land
+* Fixed Idle Breakout
 * Fixed the incorrectly spelled AdVenture Capitalist tooltip
