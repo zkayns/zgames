@@ -84,7 +84,7 @@ function mcloak(url) {
   iframe.src = url;
   win.document.body.appendChild(iframe);
 };
-$("#logoImg").on("click", function(){
+document.getElementById("logoImg").onclick = function(){
   window.location.href = "./a/megusta.html";
 });
 function changeTitle() {
