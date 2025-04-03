@@ -9,6 +9,15 @@
     }
   ],
   "start_url": "https://zkayns.github.io/zgames",
+  "id": "zgames/v2",
+  "shortcuts": [
+    {
+      "name": "Open Cloaked",
+      "short_name": "Cloak",
+      "description": "Opens ZGames cloaked.",
+      "url": "/cloak",
+    },
+  ],
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#000000"
