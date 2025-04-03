@@ -343,3 +343,4 @@ Games.
 ### 2.4.7 (4.3.2025)
 * Fixed Soccer Random
 * Fixed Getaway Shootout
+* Fixed the incorrectly spelled AdVenture Capitalist tooltip
