@@ -344,6 +344,7 @@ Games.
 * Added Moto X3M
 * Added Moto X3M 4: Winter
 * Added Moto X3M 5: Pool Party
+* Added PolyTrack
 * Renamed Moto X3M Spooky Land to Moto X3M 6: Spooky Land
 * Fixed Soccer Random
 * Fixed Getaway Shootout
