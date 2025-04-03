@@ -355,4 +355,5 @@ Games.
 * Fixed Idle Breakout
 * Fixed Crossy Road
 * Fixed A Dance of Fire and Ice
+* Fixed Chrome Dino
 * Fixed the incorrectly spelled AdVenture Capitalist tooltip
