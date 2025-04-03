@@ -341,9 +341,11 @@ Games.
 * Fixed A Small World Cup
 * Fixed Snow Rider 3D
 ### 2.4.7 (4.3.2025)
-* Added Moto X3M Winter
-* Added Moto X3M Pool
+* Added Moto X3M
+* Added Moto X3M 4: Winter
+* Added Moto X3M 5: Pool Party
+* Renamed Moto X3M Spooky Land to Moto X3M 6: Spooky Land
 * Fixed Soccer Random
 * Fixed Getaway Shootout
-* Fixed Moto X3M Spooky Land
+* Fixed Moto X3M 6: Spooky Land
 * Fixed the incorrectly spelled AdVenture Capitalist tooltip
