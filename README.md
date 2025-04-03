@@ -340,3 +340,6 @@ Games.
 * Fixed Tunnel Rush
 * Fixed A Small World Cup
 * Fixed Snow Rider 3D
+### 2.4.7 (4.3.2025)
+* Fixed Soccer Random
+* Fixed Getaway Shootout
