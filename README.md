@@ -347,6 +347,8 @@ Games.
 * Added PolyTrack
 * Added Volley Random
 * Renamed Moto X3M Spooky Land to Moto X3M 6: Spooky Land
+* Changed the icon for Getaway Shootout
+* Moved the Getaway Shootout icon
 * Fixed Soccer Random
 * Fixed Getaway Shootout
 * Fixed Moto X3M 6: Spooky Land
