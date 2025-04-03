@@ -1,4 +1,3 @@
-try {
 var timezone = "EST";
 var logs = document.getElementById("logs");
 var time = document.getElementById("time");
@@ -234,7 +233,4 @@ function toggleConsole() {
   } else {
     cons.style.display = "none";
   };
-};
-} catch(err) {
-    alert(err.message);
 };
