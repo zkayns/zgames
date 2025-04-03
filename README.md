@@ -341,6 +341,7 @@ Games.
 * Fixed A Small World Cup
 * Fixed Snow Rider 3D
 ### 2.4.7 (4.3.2025)
+* Added Moto X3M Winter
 * Fixed Soccer Random
 * Fixed Getaway Shootout
 * Fixed Moto X3M Spooky Land
