@@ -240,7 +240,7 @@ function share() {
 error #eb3440
 */
 for (let i in document.querySelectorAll(".disabled")) {
-    document.querySelectorAll(".disabled")[i].setAttribute("alt", `${document.querySelectorAll(".disabled")[i].getAttribute("alt")} (Unavailable)`;
+    document.querySelectorAll(".disabled")[i].firstChild.setAttribute("alt", `${document.querySelectorAll(".disabled")[i].firstChild.getAttribute("alt")} (Unavailable)`;
 };
 tippy('img', {
     content: (reference) => reference.alt,
