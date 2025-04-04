@@ -241,7 +241,7 @@ error #eb3440
 */
 for (let i in document.querySelectorAll("img")) {
     let thisElement=document.querySelectorAll("img");
-    if (thisElement.parentElement.getAttribute("class")=="disabled") thisElement.alt+=" (Unavailable)";
+    if (thisElement.parentElement.getAttribute("class")=="disabled") thisElement.setAttribute("alt", `${thisElement.getAttribute("alt")} (Unavailable)`);
 };
 tippy('img', {
     content: (reference) => reference.alt,
