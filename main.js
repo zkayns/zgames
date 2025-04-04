@@ -250,3 +250,6 @@ function toggleConsole() {
     cons.style.display = "none";
   }
 }
+for (let i in document.querySelectorAll(".disabled")) {
+    document.querySelectorAll(".disabled")[i].alt+=" (Unavailable)";
+};
