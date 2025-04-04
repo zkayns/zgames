@@ -386,3 +386,6 @@ fixtest {
     z-index: 1;
     transition: .3s all ease;
 }
+.disabled {
+    filter: brightness(0.3);
+}
