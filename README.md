@@ -357,3 +357,5 @@ Games.
 * Fixed A Dance of Fire and Ice
 * Fixed Chrome Dino
 * Fixed the incorrectly spelled AdVenture Capitalist tooltip
+### 2.4.8 (4.4.2025) - Seeecret Friday 8!
+* Added Subway Surfers Beijing
