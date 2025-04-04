@@ -239,8 +239,9 @@ function share() {
 /* color references
 error #eb3440
 */
-for (let i in document.querySelectorAll(".disabled")) {
-    document.querySelectorAll(".disabled")[i].querySelector("img").setAttribute("alt", `${document.querySelectorAll(".disabled")[i].querySelector("img").getAttribute("alt")} (Unavailable)`;
+for (let i in document.querySelectorAll("img")) {
+    let thisElement=document.querySelectorAll("img");
+    if (thisElement.parentElement.getAttribute("class")=="disabled") thisElement.alt+=" (Unavailable)";
 };
 tippy('img', {
     content: (reference) => reference.alt,
