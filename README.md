@@ -360,3 +360,4 @@ Games.
 ### 2.4.8 (4.4.2025) - Seeecret Friday 8!
 * Added Subway Surfers Beijing
 * Added Subway Surfers Houston
+* Added the disabled class for bugged and/or blocked games
