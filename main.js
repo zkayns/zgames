@@ -131,6 +131,9 @@ $(".emergency").on('keyup', function (e) {
 $("body").on('keyup', function(e) {
     if (e.key === '`' && !$("input").is(":focus")) toggleConsole();
 });
+$(".disabled").on('click', function(e) {
+    e.preventDefault();
+});
 setInterval(updateLogs, 10)
 setInterval(updateTime, 10)
 function updateLogs() {
