@@ -239,6 +239,9 @@ function share() {
 /* color references
 error #eb3440
 */
+for (let i in document.querySelectorAll(".disabled")) {
+    document.querySelectorAll(".disabled")[i].alt+=" (Unavailable)";
+};
 tippy('img', {
     content: (reference) => reference.alt,
     animation: 'scale-subtle',
@@ -250,6 +253,3 @@ function toggleConsole() {
     cons.style.display = "none";
   }
 }
-for (let i in document.querySelectorAll(".disabled")) {
-    document.querySelectorAll(".disabled")[i].alt+=" (Unavailable)";
-};
