@@ -239,10 +239,6 @@ function share() {
 /* color references
 error #eb3440
 */
-for (let i in document.querySelectorAll("img")) {
-    let thisElement=document.querySelectorAll("img")[i];
-    if (thisElement.parentElement.getAttribute("class")=="disabled") thisElement.alt+=" (Unavailable)";
-};
 tippy('img', {
     content: (reference) => reference.alt,
     animation: 'scale-subtle',
