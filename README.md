@@ -361,3 +361,5 @@ Games.
 * Added Subway Surfers Beijing
 * Added Subway Surfers Houston
 * Added the disabled class for bugged and/or blocked games
+### 2.4.9 (4.17.2025)
+* Added Crazy Cattle 3D
