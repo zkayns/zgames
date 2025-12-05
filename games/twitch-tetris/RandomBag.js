@@ -28,7 +28,7 @@ RandomBag.prototype.getQueue = function () {
 */
 RandomBag.prototype.popQueue = function () {
     let a=this.available.filter(piece=>!this.getQueue().includes(piece));
-    if (a.length<5) a=RandomBag.initialList;
+    if (a.length==0) a=RandomBag.initialList;
     this.queue.push(a[generateRandomPiece()%a.length]);
     return this.queue.shift();
 };
@@ -42,6 +42,6 @@ RandomBag.prototype.nextAvailable = function() {
     // if the available needs to be rebuilt
     if (!this.available.length) this.available = RandomBag.initialList.slice(0); // shallow copy
     let a=this.available.filter(piece=>!this.getQueue().includes(piece));
-    if (a.length<5) a=RandomBag.initialList;
+    if (a.length==0) a=RandomBag.initialList;
     return a[generateRandomPiece()%a.length];
 };
