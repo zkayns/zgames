@@ -363,3 +363,25 @@ Games.
 * Added the disabled class for bugged and/or blocked games
 ### 2.4.9 (4.17.2025)
 * Added Crazy Cattle 3D
+### 2.5.0 (12.5.2025) - Seeecret Friday 9!
+* TwitchTetris now uses a seedable Doom-like RNG function for the random bag
+* Cleaned up TwitchTetris code
+* Removed </img> tags from TwitchTetris
+* TwitchTetris no longer ends after level 15, instead going on infinitely
+* Centered TwitchTetris' pause screen buttons
+* Renamed TwitchTetris' Controls menu to the Options menu
+* Added placeholder TwitchTetris cheats menu
+* Made TwitchTetris use localStorage instead of cookies
+* Switching between default and custom controls no longer resets your TwitchTetris control profile
+* Added control profile importing and exporting to TwitchTetris
+* Added a button to reset your TwitchTetris control profile to the defaults
+* Added random seed cheat to TwitchTetris
+* Added piece filter cheat to TwitchTetris
+* Added multihold cheat to TwitchTetris
+* Fixed VT323 font failing to load when playing TwitchTetris locally
+* TwitchTetris swap control input now reads "Swap Piece" instead of "Swap Peice"
+* Added Constants.js file to TwitchTetris
+* TwitchTetris Block objects are now defined using the class keyword instead of a function
+* TwitchTetris PreviewGroup objects are now defined using the class keyword instead of a function
+* TwitchTetris Button objects are now defined using the class keyword instead of a function
+* User now has to press Enter before TwitchTetris will restart after a lost run
