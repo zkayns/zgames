@@ -388,3 +388,5 @@ Games.
 ### 2.5.1 (12.5.2025)
 * Fixed the TwitchTetris RandomBag being unable to choose a piece if all of the available pieces were already in the queue
 * Added the TwitchTetris Cheats menu
+### 2.5.2 (12.5.2025)
+* Fixed TwitchTetris cheats not working if the user doesn't already have cheats stored in localStorage
