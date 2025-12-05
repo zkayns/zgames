@@ -222,12 +222,12 @@ document.getElementById("restoreDefaults").addEventListener("click", (e)=>{
     document.getElementById("customRadio").checked=true;
 });
 function loadCheats() {
-    if (readSpecialCookie("Cheats.enabled")==true) document.getElementById("cheats").checked=true;
-    if (readSpecialCookie("Cheats.randomSeed.enabled")==true) document.getElementById("randomSeed").checked=true;
-    document.getElementById("seed").value=readSpecialCookie("Cheats.randomSeed.seed");
-    if (readSpecialCookie("Cheats.multiHold.enabled")==true) document.getElementById("multiHold").checked=true;
-    if (readSpecialCookie("Cheats.pieceFilter.enabled")==true) document.getElementById("pieceFilter").checked=true;
-    readSpecialCookie("Cheats.pieceFilter.whitelist").forEach(piece=>{
+    if (readCookie("Cheats.enabled")&&readSpecialCookie("Cheats.enabled")==true) document.getElementById("cheats").checked=true;
+    if (readCookie("Cheats.randomSeed.enabled")&&readSpecialCookie("Cheats.randomSeed.enabled")==true) document.getElementById("randomSeed").checked=true;
+    if (readCookie("Cheats.randomSeed.seed")) document.getElementById("seed").value=readSpecialCookie("Cheats.randomSeed.seed");
+    if (readCookie("Cheats.multiHold.enabled")&&readSpecialCookie("Cheats.multiHold.enabled")==true) document.getElementById("multiHold").checked=true;
+    if (readCookie("Cheats.pieceFilter.enabled")&&readSpecialCookie("Cheats.pieceFilter.enabled")==true) document.getElementById("pieceFilter").checked=true;
+    if (readCookie("Cheats.pieceFilter.whitelist")) readSpecialCookie("Cheats.pieceFilter.whitelist").forEach(piece=>{
         document.getElementById(`${piece}Piece`).checked=true;
     });
 };
