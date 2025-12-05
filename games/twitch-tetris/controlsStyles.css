@@ -11,7 +11,92 @@
     width: 580;
     position: relative;
 }
-
+input {
+    font-family: VT323;
+    color: #008000;
+}
+button {
+    font-size: 16px;
+    font-family: VT323;
+    color: #008000;
+    background-color: #000d00;
+    border: 1px solid #008000;
+    border-radius: 5px;
+    padding: 2.5px 5px;
+}
+input[type="checkbox"] {
+    display: inline-block;
+    vertical-align: text-top;
+    cursor: pointer;
+    appearance: none;
+    border: 2px solid #008000;
+    background-color: #000d00;
+    width: 1em;
+    height: 1em;
+}
+input[type="checkbox"]:checked {
+    background-color: #008000;
+}
+input[type="radio"] {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid #008000;
+    width: 1em;
+    height: 1em;
+    background-color: #000d00;
+}
+input[type="radio"]:checked {
+    background-color: #008000;
+}
+input[type="number"], input[type="text"] {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid #008000;
+    background-color: #000d00;
+}
+.yellowCheckbox {
+    border: 2px solid #ffff00 !important;
+}
+.yellowCheckbox:checked {
+    background-color: #ffff00 !important;
+}
+.cyanCheckbox {
+    border: 2px solid #00ffff !important;
+}
+.cyanCheckbox:checked {
+    background-color: #00ffff !important;
+}
+.blueCheckbox {
+    border: 2px solid #0000ff !important;
+}
+.blueCheckbox:checked {
+    background-color: #0000ff !important;
+}
+.orangeCheckbox {
+    border: 2px solid #ffa500 !important;
+}
+.orangeCheckbox:checked {
+    background-color: #ffa500 !important;
+}
+.greenCheckbox {
+    border: 2px solid #00ff00 !important;
+}
+.greenCheckbox:checked {
+    background-color: #00ff00 !important;
+}
+.redCheckbox {
+    border: 2px solid #ff0000 !important;
+}
+.redCheckbox:checked {
+    background-color: #ff0000 !important;
+}
+.purpleCheckbox {
+    border: 2px solid #ff00ff !important;
+}
+.purpleCheckbox:checked {
+    background-color: #ff00ff !important;
+}
 .controlsUnit
 {
     margin: 10px 5px;
@@ -25,7 +110,7 @@
     width: 200px;
 }
 
-.controlsUnit:hover
+.controlsUnit:hover, button:hover
 {
     cursor: pointer;
     background-color: #008000;
@@ -113,7 +198,6 @@
     border-radius: 5px;
     padding: 5px 10px;
     width: 560px;
-    height: 50px;
     position: absolute;
     top: 350px;
     left: 469px;

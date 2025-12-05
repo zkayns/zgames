@@ -221,3 +221,27 @@ document.getElementById("restoreDefaults").addEventListener("click", (e)=>{
     configureCustomControls(true, true);
     document.getElementById("customRadio").checked=true;
 });
+function loadCheats() {
+    if (readSpecialCookie("Cheats.enabled")==true) document.getElementById("cheats").checked=true;
+    if (readSpecialCookie("Cheats.randomSeed.enabled")==true) document.getElementById("randomSeed").checked=true;
+    document.getElementById("seed").value=readSpecialCookie("Cheats.randomSeed.seed");
+    if (readSpecialCookie("Cheats.multiHold.enabled")==true) document.getElementById("multiHold").checked=true;
+    if (readSpecialCookie("Cheats.pieceFilter.enabled")==true) document.getElementById("pieceFilter").checked=true;
+    readSpecialCookie("Cheats.pieceFilter.whitelist").forEach(piece=>{
+        document.getElementById(`${piece}Piece`).checked=true;
+    });
+};
+loadCheats();
+function updateCheatState() {
+    createCookie("Cheats.enabled", `BOOLEAN_${document.getElementById("cheats").checked}`, 1000);
+    createCookie("Cheats.randomSeed.enabled", `BOOLEAN_${document.getElementById("randomSeed").checked}`, 1000);
+    createCookie("Cheats.randomSeed.seed", `NUMBER_${document.getElementById("seed").value}`, 1000);
+    createCookie("Cheats.multiHold.enabled", `BOOLEAN_${document.getElementById("multiHold").checked}`, 1000);
+    createCookie("Cheats.pieceFilter.enabled", `BOOLEAN_${document.getElementById("pieceFilter").checked}`, 1000);
+    let whitelistArray=new Array();
+    document.querySelectorAll("*").forEach(el=>{
+        if ((new RegExp(".Piece", "i")).test(el.id)&&el?.checked) whitelistArray.push(el.id[0]);
+    });
+    createCookie("Cheats.pieceFilter.whitelist", `OBJECT_${JSON.stringify(whitelistArray)}`, 1000);
+};
+setInterval(updateCheatState, 16);

@@ -40,32 +40,11 @@ ScoreTracker.prototype.updateScore = function(config) {
 	    scoreDiff += 100 * this.level;
 	}
     } else if (config.normalT) {
-	// normal t spin, bonus for eveything but 0 lines
-	switch (config.lines) {
-	case 0:
-	    tickerLines.push("T Spin");
-	    linesCleared += 4;
-	    scoreDiff += 400 * this.level;
-	    break;
-	case 1:
-	    tickerLines.push("T Spin Single");
-	    linesCleared += 8;
-	    isBonus = true;
-	    scoreDiff += 800 * this.level;
-	    break;
-	case 2:
-	    tickerLines.push("T Spin Double");
-	    linesCleared += 12;
-	    isBonus = true;
-	    scoreDiff += 1200 * this.level;
-	    break;
-	case 3:
-	    tickerLines.push("T SPIN TRIPLE");
-	    linesCleared += 16;
-	    isBonus = true;
-	    scoreDiff += 1600 * this.level;
-	    break;
-	}
+	    // normal t spin, bonus for eveything but 0 lines
+        tickerLines.push(["T Spin", "T Spin Single", "T Spin Double", "T SPIN TRIPLE"][config.lines]);
+        linesCleared+=(config.lines+1)*4;
+        isBonus=!!config.lines;
+        scoreDiff+=(config.lines+1)*400*this.level;
     } else if (config.lines > 0) {
 	// plain old line clears
 	switch (config.lines) {
@@ -95,15 +74,11 @@ ScoreTracker.prototype.updateScore = function(config) {
 
     // apply the combo
     if (linesCleared > 0) {
-	this.curCombo += 1;
+	this.curCombo++;
 	linesCleared += Math.floor(this.curCombo * 0.5);
 	scoreDiff += 50 * this.curCombo * this.level;
-	if (this.curCombo >= 1) {
-	    tickerLines.push("Combo x" + this.curCombo);
-	}
-    } else {
-	this.curCombo = -1;
-    }
+	if (this.curCombo >= 1) tickerLines.push(`Combo x${this.curCombo}`);
+	} else this.curCombo = -1;
 
     // apply back-to-back bonus
     if (this.lastWasBonus && isBonus) {

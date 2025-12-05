@@ -109,7 +109,7 @@ Game.prototype.newBlock = function (calledBySwap) {
 	    return thisObject.isLegalPosition(x, y);
     });
     if (this.controlGroup.isIllegalStart) this.gameLost = true;
-    if (!calledBySwap) this.swapAllowed = true;
+    if (!calledBySwap||cheatEnabled("multiHold")) this.swapAllowed = true;
     this.updatePreviews(this.randBag.getQueue());
 };
 

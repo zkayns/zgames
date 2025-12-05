@@ -111,7 +111,7 @@ Game.prototype.swap = function() {
     thisObject = this;
 
     // can only be called once per drop
-    if (!this.swapAllowed&&!Cheats.multiHold.enabled) return;
+    if (!this.swapAllowed&&!cheatEnabled("multiHold")) return;
     this.swapAllowed = false;
 
     // Reset the locking
