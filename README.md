@@ -385,3 +385,6 @@ Games.
 * TwitchTetris PreviewGroup objects are now defined using the class keyword instead of a function
 * TwitchTetris Button objects are now defined using the class keyword instead of a function
 * User now has to press Enter before TwitchTetris will restart after a lost run
+### 2.5.1 (12.5.2025)
+* Fixed the TwitchTetris RandomBag being unable to choose a piece if all of the available pieces were already in the queue
+* Added the TwitchTetris Cheats menu
