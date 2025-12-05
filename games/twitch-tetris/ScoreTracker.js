@@ -125,8 +125,8 @@ ScoreTracker.prototype.updateScore = function(config) {
 	if (this.level < 15) {
 	    this.level += 1;
 	    this.linesRemaining = ScoreTracker.levelLines(this.level);
-	} else {
-	    this.isGameWon = true;
+	} else { // INFINITE MODE BABY!
+	    //this.isGameWon = true;
 	}
 	this.outputLevel();
     }
@@ -134,8 +134,6 @@ ScoreTracker.prototype.updateScore = function(config) {
     if (linesCleared > 0) {
 	this.outputLines();
     }
-
-
     this.score += scoreDiff;
     this.outputScore();
 
@@ -188,26 +186,26 @@ ScoreTracker.prototype.gameWon = function() {
 
 ScoreTracker.prototype.getResults = function() {
     return {
-	score: this.score,
-	level: this.level,
-	won: this.isGameWon
+	    score: this.score,
+	    level: this.level,
+	    won: this.isGameWon
     };
 };
 
 ScoreTracker.prototype.outputScore = function() {
     this.scoreOutput.addLine("Score:");
-    this.scoreOutput.addLine("" + this.score);
+    this.scoreOutput.addLine(this.score);
     this.scoreOutput.addLine("");
 };
 
 ScoreTracker.prototype.outputLines = function() {
     this.linesOutput.addLine("Lines:");
-    this.linesOutput.addLine("" + this.linesRemaining);
+    this.linesOutput.addLine(this.linesRemaining);
     this.linesOutput.addLine("");
 };
 
 ScoreTracker.prototype.outputLevel = function() {
     this.levelOutput.addLine("Level:");
-    this.levelOutput.addLine("" + this.level);
+    this.levelOutput.addLine(this.level);
     this.levelOutput.addLine("");
 };

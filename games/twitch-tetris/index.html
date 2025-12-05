@@ -1,14 +1,16 @@
 <html>
   <head>
-    <title>TwitchTetris | 3kh0</title>
+    <title>TwitchTetris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet" type="text/css" />
-		<link href="/favicon.ico" rel="icon">
+	<link href="/favicon.ico" rel="icon">
     <link href="styles.css" rel="stylesheet" type="text/css" />
-
+    <script src="ZGames.js"></script>
     <script src="cookie.js"></script>
     <script src="gameControls.js"></script>
-
     <script src="jawsjs.js"></script>
+    <script src="Constants.js"></script>
     <script src="Block.js"></script>
     <script src="Shapes.js"></script>
     <script src="WallKicks.js"></script>
@@ -25,11 +27,9 @@
     <script src="/js/main.js"></script>
 
     <script>
-      function onClickEvent(event) {
-        if (Tetris.currentInstance) {
-          Tetris.currentInstance.mouseClicked(event.layerX, event.layerY);
+        function onClickEvent(event) {
+            if (Tetris.currentInstance) Tetris.currentInstance.mouseClicked(event.layerX, event.layerY);
         }
-      }
     </script>
   </head>
   <body>
@@ -46,7 +46,7 @@
             </a>
             <br />
             <a href="controls.html" class="bareLink">
-              <div class="menuItem">Controls Options</div>
+              <div class="menuItem">Options</div>
             </a>
             <br />
             <a href="highScores.html" class="bareLink">
@@ -83,7 +83,7 @@
               </div>
 
               <canvas class="gameCanvas" id="gameCanvas" width="600" height="500" onclick="onClickEvent(event)" class="gameCanvas">
-                Your browser does not natively support Html5, or the Canvas Tag. Using this browser is slowing the progress of the web. Please get a modern browser, such as Google Chrome or Mozzila FireFox
+                Your browser does not natively support HTML5 or the canvas tag. Using this browser is slowing the progress of the web. Please use a modern browser, such as Google Chrome or Mozilla Firefox
               </canvas>
             </div>
             <div class="controlsTitle">

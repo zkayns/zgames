@@ -1,7 +1,5 @@
 function Game(inputMapping, autoRepeat, threshold) {
-    var thisObject = this,
-    i;
-
+    
     this.firstLoop = true;
 
     this.blocks = [];    
@@ -9,9 +7,7 @@ function Game(inputMapping, autoRepeat, threshold) {
 
     // make the preview blocks
     this.previewBlocks = [];
-    for (i = 0; i < 4; i += 1) {
-	this.previewBlocks.push(new Block({blockX: -10, blockY: -10, preview: true}));
-    }
+    for (let i in new Uint8Array(4)) this.previewBlocks.push(new Block({blockX: -10, blockY: -10, preview: true}));
 
     this.scoreOutput = new TtyBlock("scoreDiv", 3);
     this.linesOutput = new TtyBlock("linesDiv", 3);
@@ -39,9 +35,7 @@ function Game(inputMapping, autoRepeat, threshold) {
     this.randBag = new RandomBag(this.previewLength);
     // make the preview blocks
     this.previewGroups = [];
-    for (i = 0; i < this.previewLength; i += 1) {
-	this.previewGroups.push(new PreviewGroup(330, 70 * i + 35));
-    }
+    for (let i in new Uint8Array(this.previewLength)) this.previewGroups.push(new PreviewGroup(330, 70 * parseInt(i) + 35));
 
     this.swapGroup = null;
     this.swapAllowed = true;
@@ -51,50 +45,49 @@ function Game(inputMapping, autoRepeat, threshold) {
     this.occupiedPositions = {};
 
     this.input = {
-	shiftLeft: { 
-	    autoRepeat: true,
-	    handler: function () {
-		if (thisObject.controlGroup.shift(true)) {
-		    thisObject.resetLockCounter(true);
-		}
-	    }
-	},
-	shiftRight: { 
-	    autoRepeat: true,
-	    handler: function() {
-		if (thisObject.controlGroup.shift(false)) {
-		    thisObject.resetLockCounter(true);
-		}
-	    }
-	},
-	softDrop: {
-	    autoRepeat: true,
-	    preCharged: true,
-	    handler: function() {
-		thisObject.dropBlock();
-		thisObject.scoreTracker.softDrop();
-	    }
-	},
-	hardDrop: { handler: function() {
-	    var dist = thisObject.controlGroup.fall();
-	    thisObject.scoreTracker.hardDrop(dist);
-	    thisObject.lockBlocks();
-	}},
-	rotateLeft: { handler: function() {
-	    if (thisObject.controlGroup.turn(false)) {
-		thisObject.resetLockCounter(true);
-	    }
-	}},
-	rotateRight: { handler: function() {
-	    if (thisObject.controlGroup.turn(true)) {
-		thisObject.resetLockCounter(true);
-	    }
-	}},
-	swap: { handler: function() {
-	    thisObject.swap();
-	}}
+	    shiftLeft: { 
+	        autoRepeat: true,
+	        handler: ()=>{
+		        if (this.controlGroup.shift(true)) this.resetLockCounter(true);
+	        }
+	    },
+	    shiftRight: { 
+	        autoRepeat: true,
+	        handler: ()=>{
+		        if (this.controlGroup.shift(false)) this.resetLockCounter(true);
+		    }
+	    },
+	    softDrop: {
+	        autoRepeat: true,
+	        preCharged: true,
+	        handler: ()=>{
+		        this.dropBlock();
+		        this.scoreTracker.softDrop();
+	        }
+	    },
+	    hardDrop: { 
+            handler: ()=>{
+	            var dist = this.controlGroup.fall();
+	            this.scoreTracker.hardDrop(dist);
+	            this.lockBlocks();
+	        }
+        },
+	    rotateLeft: { 
+            handler: ()=>{
+	            if (this.controlGroup.turn(false)) this.resetLockCounter(true);
+	        }
+        },
+	    rotateRight: { 
+            handler: ()=>{
+	            if (this.controlGroup.turn(true)) this.resetLockCounter(true);
+	        }
+        },
+	    swap: { 
+            handler: ()=>{
+	            this.swap();
+	        }
+        }
     };
-
     this.inputMapping = inputMapping;
 }
 
@@ -104,32 +97,19 @@ function Game(inputMapping, autoRepeat, threshold) {
 Game.prototype.newBlock = function (calledBySwap) {
     var thisObject = this,
     shape = this.randBag.popQueue(),
-    newBlocks = [],
-    curBlock,
-    i;
-
+    newBlocks = [];
     this.dropPeriod = this.scoreTracker.getLevelPeriod();
-
     // create some new blocks
-    for (i = 0; i < 4; i += 1) {
-	curBlock = new Block({blockX: -10, blockY: -10, shape: shape, occupiedPositions: this.occupiedPositions});
-	newBlocks.push(curBlock);
-	this.blocks.push(curBlock);
-    }
-
-    this.controlGroup = new ControlGroup(newBlocks, shape, function(x, y){
-	return thisObject.isLegalPosition(x, y);
+    for (let i in new Uint8Array(4)) {
+	    var curBlock = new Block({blockX: -10, blockY: -10, shape: shape, occupiedPositions: this.occupiedPositions});
+	    newBlocks.push(curBlock);
+	    this.blocks.push(curBlock);
+    };
+    this.controlGroup = new ControlGroup(newBlocks, shape, (x, y)=>{
+	    return thisObject.isLegalPosition(x, y);
     });
-    
-    if (this.controlGroup.isIllegalStart) {
-	this.gameLost = true;
-    }
-
-    if (!calledBySwap) {
-	// the user is allowed to swap blocks again
-	this.swapAllowed = true;
-    }
-
+    if (this.controlGroup.isIllegalStart) this.gameLost = true;
+    if (!calledBySwap) this.swapAllowed = true;
     this.updatePreviews(this.randBag.getQueue());
 };
 
@@ -278,14 +258,9 @@ Game.prototype.draw = function(dTime) {
 */
 Game.prototype.isLegalPosition = function (x, y) {
     // if there is a block in the way
-    if (this.occupiedPositions[x+','+y]) {
-	return false;
-    }
-    
+    if (this.occupiedPositions[x+','+y]) return false;
     // if it's on the field
-    if (x >= 10 || x < 0 || y >= 20) {
-	return false;
-    }
+    if (x >= 10 || x < 0 || y >= 20) return false;
     return true;
 };
 
@@ -293,9 +268,6 @@ Game.prototype.isLegalPosition = function (x, y) {
 * drops the controlled blocks by one
 */
 Game.prototype.dropBlock = function (causedByGravity) {
-    if (!causedByGravity) {
-	this.timeToNextDrop = this.dropPeriod;
-    }
-
+    if (!causedByGravity) this.timeToNextDrop = this.dropPeriod;
     this.controlGroup.drop();
 };

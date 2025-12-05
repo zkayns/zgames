@@ -1,20 +1,28 @@
 var controlsLoaded = false;
 var curControl = null;
-
+var cookies = [
+    'rotateLeft',
+	'rotateRight',
+	'shiftLeft',
+	'shiftRight',
+	'softDrop',
+	'hardDrop',
+	'swap'
+];
 function onControlsLoad() {
     jaws.start(InputMonitor);
     // check for an existing controls cookie
     var customControls = readCookie('customControls');
 
     // these actions will trigger the controls configurations
-    if (customControls === 'TRUE') {
-	// if there is a cookie, set up the controls for it
-	document.getElementById('customRadio').checked = true;
-	configureCustomControls();
+    if (customControls=='TRUE') {
+	    // if there is a cookie, set up the controls for it
+	    document.getElementById('customRadio').checked = true;
+	    configureCustomControls(true);
     } else {
-	// if no cookie, assign defaults, create the cookie
-	document.getElementById('defaultRadio').checked = true;
-	setDefaultControls();
+	    // if no cookie, assign defaults, create the cookie
+	    document.getElementById('defaultRadio').checked = true;
+	    setDefaultControls();
     }
 
     configureAutoRepeat();
@@ -33,65 +41,51 @@ function setDefaultControls() {
     createCookie('customControls', 'FALSE', 1000);
 
     // configure the gui to the default text
-    document.getElementById('rotateLeftValue')
-	.innerHTML = 'Z';
-    document.getElementById('rotateRightValue')
-	.innerHTML = 'X, UP';
-    document.getElementById('shiftLeftValue')
-	.innerHTML = 'LEFT';
-    document.getElementById('shiftRightValue')
-	.innerHTML = 'RIGHT';
-    document.getElementById('softDropValue')
-	.innerHTML = 'DOWN';
-    document.getElementById('hardDropValue')
-	.innerHTML = 'SPACE';
-    document.getElementById('swapValue')
-	.innerHTML = 'SHIFT, C';
+    document.getElementById('rotateLeftValue').innerHTML = 'Z';
+    document.getElementById('rotateRightValue').innerHTML = 'X, UP';
+    document.getElementById('shiftLeftValue').innerHTML = 'LEFT';
+    document.getElementById('shiftRightValue').innerHTML = 'RIGHT';
+    document.getElementById('softDropValue').innerHTML = 'DOWN';
+    document.getElementById('hardDropValue').innerHTML = 'SPACE';
+    document.getElementById('swapValue').innerHTML = 'SHIFT, C';
 }
 
-function configureCustomControls(fromCookie, fromThreshold) {
+function configureCustomControls(fromCookie, restoreDefaults) {
     stopPollingInput();
 
     document.getElementById('instructionsDefault').setAttribute('class', 'noDisplay');
     document.getElementById('instructionsCustom').setAttribute('class', 'withDisplay');
     document.getElementById('instructionsPending').setAttribute('class', 'noDisplay');
 
-    if (controlsLoaded && !fromCookie) {
-	// the cookies need to be created & initialized
-	createCookie('rotateLeft', 'Z', 1000);
-	createCookie('rotateRight', 'X', 1000);
-	createCookie('shiftLeft', 'LEFT', 1000);
-	createCookie('shiftRight', 'RIGHT', 1000);
-	createCookie('softDrop', 'DOWN', 1000);
-	createCookie('hardDrop', 'SPACE', 1000);
-	createCookie('swap', 'C', 1000);
-
-	createCookie('customControls', 'TRUE', 1000);
+    if (restoreDefaults) {
+	    // the cookies need to be created & initialized
+	    createCookie('rotateLeft', 'Z', 1000);
+	    createCookie('rotateRight', 'X', 1000);
+	    createCookie('shiftLeft', 'LEFT', 1000);
+	    createCookie('shiftRight', 'RIGHT', 1000);
+	    createCookie('softDrop', 'DOWN', 1000);
+	    createCookie('hardDrop', 'SPACE', 1000);
+	    createCookie('swap', 'C', 1000);
+        createCookie('customControls', 'TRUE', 1000);
     }
 
     // assign all of the GUI elements based on the cookie
-    document.getElementById('rotateLeftValue')
-	.innerHTML = readCookie('rotateLeft');
-    document.getElementById('rotateRightValue')
-	.innerHTML = readCookie('rotateRight');
-    document.getElementById('shiftLeftValue')
-	.innerHTML = readCookie('shiftLeft');
-    document.getElementById('shiftRightValue')
-	.innerHTML = readCookie('shiftRight');
-    document.getElementById('softDropValue')
-	.innerHTML = readCookie('softDrop');
-    document.getElementById('hardDropValue')
-	.innerHTML = readCookie('hardDrop');
-    document.getElementById('swapValue')
-	.innerHTML = readCookie('swap');
+    document.getElementById('rotateLeftValue').innerHTML = readCookie('rotateLeft');
+    document.getElementById('rotateRightValue').innerHTML = readCookie('rotateRight');
+    document.getElementById('shiftLeftValue').innerHTML = readCookie('shiftLeft');
+    document.getElementById('shiftRightValue').innerHTML = readCookie('shiftRight');
+    document.getElementById('softDropValue').innerHTML = readCookie('softDrop');
+    document.getElementById('hardDropValue').innerHTML = readCookie('hardDrop');
+    document.getElementById('swapValue').innerHTML = readCookie('swap');
+    createCookie("customControls", "TRUE", 1000);
 }
 
 function controlsUnitClicked(controlName) {
     // if default controls, switch to custom
-    if (readCookie('customControls') !== 'TRUE') {
-	// if no cookie, assign defaults, create the cookie
-	document.getElementById('customRadio').checked = true;
-	configureCustomControls();
+    if (readCookie('customControls') != 'TRUE') {
+	    // if no cookie, assign defaults, create the cookie
+	    document.getElementById('customRadio').checked = true;
+	    configureCustomControls(true);
     }
 
     document.getElementById('instructionsDefault').setAttribute('class', 'noDisplay');
@@ -102,8 +96,8 @@ function controlsUnitClicked(controlName) {
 	stopPollingInput();
     }
     curControl = {
-	name:  controlName,
-	containerId: controlName + 'Div'
+	    name: controlName,
+	    containerId: `${controlName}Div`
     };
 
     startPollingInput();
@@ -125,14 +119,7 @@ function stopPollingInput() {
 }
 
 function findWhereKeyUsed(key) {
-    var cookies = ['rotateLeft',
-		   'rotateRight',
-		   'shiftLeft',
-		   'shiftRight',
-		   'softDrop',
-		   'hardDrop',
-		   'swap'],
-    i;
+    var i;
 
     for (i = 0; i < cookies.length; i += 1) {
 	if (readCookie(cookies[i]) === key) {
@@ -168,15 +155,14 @@ function reportKeyPressed(keyLower) {
 function configureAutoRepeat() {
     var autoRepeat = readCookie('autoRepeat');
     if (autoRepeat === null) {
-	autoRepeat = "50";
-	createCookie('autoRepeat', autoRepeat, 1000);
+	    autoRepeat = "50";
+	    createCookie('autoRepeat', autoRepeat, 1000);
     }
     var threshold = readCookie('threshold');
     if (threshold === null) {
-	threshold = "200";
-	createCookie("threshold", threshold, 1000);
+	    threshold = "200";
+	    createCookie("threshold", threshold, 1000);
     }
-
     document.getElementById('autoRepeatRange').value = autoRepeat;
     document.getElementById('autoRepeatValue').innerHTML = autoRepeat;
     document.getElementById('thresholdRange').value = threshold;
@@ -200,3 +186,38 @@ function resetAutoRepeat() {
     eraseCookie('threshold');
     configureAutoRepeat();
 }
+document.getElementById("exportProfile").addEventListener("click", (e)=>{
+    let a=document.createElement("a");
+    let controlObject={
+        autoRepeat: readCookie("autoRepeat"),
+        threshold: readCookie("threshold")
+    };
+    cookies.forEach(c=>controlObject[c]=readCookie(c));
+    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(controlObject)));
+    a.setAttribute('download', "ControlProfile.json");
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+});
+document.getElementById("importProfileButton").addEventListener("click", (e)=>{
+    document.getElementById("importProfile").click();
+});
+document.getElementById("importProfile").addEventListener("change", (e)=>{
+    if (!e.target.files.length) return false;
+    let f=e.target.files[0];
+    let fr=new FileReader();
+    fr.addEventListener("load", (e)=>{
+        let controlObject=JSON.parse(e.target.result);
+        if (!controlObject) return false;
+        Object.keys(controlObject).forEach(key=>{
+            createCookie(key, controlObject[key], 1000);
+        });
+        configureCustomControls(true);
+        configureAutoRepeat();
+    });
+    fr.readAsText(f);
+});
+document.getElementById("restoreDefaults").addEventListener("click", (e)=>{
+    configureCustomControls(true, true);
+    document.getElementById("customRadio").checked=true;
+});

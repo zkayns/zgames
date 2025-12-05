@@ -103,7 +103,21 @@
     top: 265px;
     left: 0px;
 }
-
+.cheatsArea {
+    margin: 10px 5px;
+    font-size: 16px;
+    font-family: VT323;
+    color: #008000;
+    background-color: #000d00;
+    border: 1px solid #008000;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 560px;
+    height: 50px;
+    position: absolute;
+    top: 350px;
+    left: 469px;
+}
 .autoRepeatForm
 {
     width: 350px;

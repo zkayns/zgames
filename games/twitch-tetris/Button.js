@@ -1,13 +1,9 @@
-function Button(config) {
-
-    var parent = new jaws.Sprite(config),
-    key;
-
-    for (key in parent) {
-	this[key] = parent[key];
+class Button {
+    constructor(config) {
+        this.parent = new jaws.Sprite(config);
+        for (let key in this.parent) this[key] = this.parent[key];
+    }
+    isClicked(x, y) {
+        return this.rect().collidePoint(x, y);
     }
 }
-
-Button.prototype.isClicked = function(x, y) {
-    return this.rect().collidePoint(x, y);
-};

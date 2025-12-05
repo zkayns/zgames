@@ -1,18 +1,16 @@
 
 /**
-* The blocks that can be moved nby the user
+* The blocks that can be moved by the user
 * @param {Array} blocks - an array of [Block] of size 4 that can be operated on
 * @param {Char} shape - the block type: i, o, j, l, s, z, t
 * @param {function({Number}x, {Number}y)} isLegalCallback - a function that retursn true if a block can be moved
 * to the new position
 */
 function ControlGroup(blocks, shape, isLegalCallback) {
-    var i,
-    newX, newY,
-    shapeConf;
+    var i;
     
     // place the blocks according to the shape
-    shapeConf = SHAPES[shape];
+    let shapeConf = SHAPES[shape];
     this.pos = shapeConf.pos;
     this.spin = shapeConf.spin;
     this.bottomed = false;
@@ -32,13 +30,11 @@ function ControlGroup(blocks, shape, isLegalCallback) {
     this.lastWasSpin = false;
 
     for (i = 0; i < blocks.length; i += 1) {
-	newX = this.baseX + this.pos[i].x;
-	newY = this.baseY + this.pos[i].y;
+	    let newX = this.baseX + this.pos[i].x;
+	    let newY = this.baseY + this.pos[i].y;
 	// see if the block placement is illegal before placing
-	if (!this.isLegalCallback(newX, newY)) {
-	    this.isIllegalStart = true;
-	}
-	this.blocks[i].setPosition(newX, newY);
+	    this.isIllegalStart=!this.isLegalCallback(newX, newY)
+	    this.blocks[i].setPosition(newX, newY);
     }
 
     this.updateBottomedState();
@@ -51,16 +47,9 @@ function ControlGroup(blocks, shape, isLegalCallback) {
 * @returns {Boolean} true iff the position is legal to move to
 */
 ControlGroup.prototype.isLegalPosition = function (x, y) {
-    var i,
-    blocks = this.blocks;
-
+    var i;
     // if it's a currently occupied, it must be legal
-    for (i = 0; i < 4; i += 1) {
-	if (blocks[i].isPosition(x, y)) {
-	    return true;
-	}
-    }
-
+    for (i = 0; i < 4; i++) if (this.blocks[i].isPosition(x, y)) return true;
     // if it's still not proven legal, then defer to the game to decide
     return this.isLegalCallback(x, y);
 };
@@ -71,36 +60,22 @@ ControlGroup.prototype.isLegalPosition = function (x, y) {
 * @returns {Boolean} true iff the shift was successful
 */
 ControlGroup.prototype.shift = function(left) {
-    var dx = (left ? -1 : 1),
-    i;
-
-    for (i = 0; i < 4; i += 1) {
-	if (!this.isLegalPosition(this.blocks[i].getX()+dx, this.blocks[i].getY())) {
-	    return false;
-	}
-    }
-
+    var dx = left?-1:1;
+    for (let i = 0; i < 4; i++) if (!this.isLegalPosition(this.blocks[i].getX()+dx, this.blocks[i].getY())) return false;
     this.lastWasSpin = false;
     this.baseX += dx;
-
-    for (i = 0; i < this.blocks.length; i += 1) {
-	this.blocks[i].moveBlock(dx, 0);
-    }
+    for (let i = 0; i < this.blocks.length; i++) this.blocks[i].moveBlock(dx, 0);
     this.updateBottomedState();
-
     return true;
 };
 
 ControlGroup.prototype.updateBottomedState = function() {
-    var i;
-
-    for (i = 0; i < this.blocks.length; i += 1) {
-	if (!this.isLegalPosition(this.blocks[i].getX(), this.blocks[i].getY() + 1)) {
-	    this.bottomed = true;
-	    return;
-	}
+    for (let i = 0; i < this.blocks.length; i++) {
+	    if (!this.isLegalPosition(this.blocks[i].getX(), this.blocks[i].getY() + 1)) {
+	        this.bottomed = true;
+	        return;
+	    }
     }
-
     this.bottomed = false;
 };
 
@@ -328,29 +303,11 @@ ControlGroup.prototype.getTSpin = function() {
     mini = false,
     curPoint;
     
-    if (!this.lastWasSpin) {
-	return null;
-    }
-
+    if (!this.lastWasSpin) return null;
     // make sure it's actually a t
-    if (this.shape !== 't') {
-	return null;
-    }
-
-    // t-spin mini tests
-    if (this.dir === 0) {
-	testPoints[0].miniCheck = true;
-	testPoints[1].miniCheck = true;
-    } else if (this.dir === 1) {
-	testPoints[1].miniCheck = true;
-	testPoints[2].miniCheck = true;
-    } else if (this.dir === 2) {
-	testPoints[2].miniCheck = true;
-	testPoints[3].miniCheck = true;
-    } else if (this.dir === 3) {
-	testPoints[3].miniCheck = true;
-	testPoints[0].miniCheck = true;
-    } 
+    if (this.shape !== 't') return null;
+    testPoints[this.dir].miniCheck=true;
+    testPoints[(this.dir+1)%4].miniCheck=true;
 
     // 3 point t test
     for (i = 0; i < 4; i += 1) {

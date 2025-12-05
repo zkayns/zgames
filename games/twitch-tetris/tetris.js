@@ -1,18 +1,15 @@
-
-FIELD_OFFSET_X = 180;
-FIELD_OFFSET_Y = 12;
-
+var tetris="";
 function TetrisControl() {
-    var tetris = new Tetris(this);
+    tetris = new Tetris(this);
 
-    this.setup = function () {
-	tetris.setup();
+    this.setup=()=>{
+	    tetris.setup();
     };
-    this.update = function () {
-	tetris.update();
+    this.update=()=>{
+	    tetris.update();
     };
-    this.draw = function () {
-	tetris.draw();
+    this.draw=()=>{
+	    tetris.draw();
     };
 
     this.restart = function() {
@@ -24,7 +21,6 @@ function TetrisControl() {
 	tetris.update();
     };
 }
-
 function Tetris(controller) {
     var background = null,
     game = null,
@@ -63,8 +59,8 @@ function Tetris(controller) {
 	Tetris.currentInstance = self;
 	game = new Game(inputAssignments, autoRepeatConfig, thresholdConfig);
 
-	continueButton = new Button({image: 'media/buttons/continue.png', x: 250, y: 150});
-	restartButton = new Button({image: 'media/buttons/restart.png', x: 250, y: 200});
+	continueButton = new Button({image: 'media/buttons/continue.png', x: 235, y: 150});
+	restartButton = new Button({image: 'media/buttons/restart.png', x: 235, y: 200});
 	
 	background = new Background();
 
@@ -119,13 +115,14 @@ function Tetris(controller) {
 			gameEndTty.addLine(scoreObject.score.toString());
 		    gameEndTty.addLine('');
 		    gameEndTty.addLine('');
+            gameEndTty.addLine('Press ENTER to restart');
 
 		    //sendScoreRequest(scoreObject.score);
 
-			window.setTimeout(function() {
+			/*window.setTimeout(function() {
 				document.getElementById('gameEndContainer').setAttribute('class', 'gameEndOutputHidden');
 				controller.restart();
-			}, 6000);
+			}, 6000);*/
 		}
 	    }
 	} else if (paused) {
@@ -148,8 +145,11 @@ function Tetris(controller) {
 		    return;
 		}
 	    }
-	} else {
-	    // TODO: nothing???
+	} else if (gameOver) {
+	    if (jaws.pressed('enter')) {
+			document.getElementById('gameEndContainer').setAttribute('class', 'gameEndOutputHidden');
+            controller.restart();
+        };
 	}
 	
 	lastEscapeState = escapePressed;
@@ -223,15 +223,7 @@ function redirectToScore() {
 }
 
 function sendScoreRequest(score) {
-    var xmlhttp;
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
-	xmlhttp=new XMLHttpRequest();
-    }
-    else
-    {// code for IE6, IE5
-	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
+    var xmlhttp=(new XMLHttpRequest())||(new ActiveXObject("Microsoft.XMLHTTP"));
     xmlhttp.onreadystatechange=function()
     {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200)
