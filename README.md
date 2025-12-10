@@ -390,3 +390,7 @@ Games.
 * Added the TwitchTetris Cheats menu
 ### 2.5.2 (12.5.2025)
 * Fixed TwitchTetris cheats not working if the user doesn't already have cheats stored in localStorage
+### 2.5.3 (12.10.2025) - Seeecret Wednesday 4!
+* Prevented user input from being ignored on the TwitchTetris options page when an input element is focused
+* Prevented TwitchTetris crashing when the Piece Filter cheat was enabled without any whitelisted pieces
+* Added new button styling to TwitchTetris' options page
