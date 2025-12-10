@@ -111,22 +111,15 @@ function startPollingInput() {
 
 function stopPollingInput() {
     if (curControl !== null) {
-	inputPolling = false;
+	    inputPolling = false;
 	
-	document.getElementById(curControl.containerId).setAttribute('class', 'controlsUnit');
-	curControl = null;
+	    document.getElementById(curControl.containerId).setAttribute('class', 'controlsUnit');
+	    curControl = null;
     }
 }
 
 function findWhereKeyUsed(key) {
-    var i;
-
-    for (i = 0; i < cookies.length; i += 1) {
-	if (readCookie(cookies[i]) === key) {
-	    return cookies[i];
-	}
-    }
-
+    for (let i = 0; i < cookies.length; i += 1) if (readCookie(cookies[i]) === key) return cookies[i];
     return null;
 }
 
@@ -245,3 +238,4 @@ function updateCheatState() {
     createCookie("Cheats.pieceFilter.whitelist", `OBJECT_${JSON.stringify(whitelistArray)}`, 1000);
 };
 setInterval(updateCheatState, 16);
+jaws.clearPreventedKeys();

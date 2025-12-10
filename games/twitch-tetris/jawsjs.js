@@ -127,7 +127,7 @@ function findOrCreateCanvas() {
  * Quick and easy startup of a jaws gameloop. Can be called in different ways:
  *
  *  jaws.start(Game)            // Start game state Game() with default options
- *  jaws.start(Game, {fps: 30}) // Start game state Geme() with options, in this case jaws will un Game with FPS 30
+ *  jaws.start(Game, {fps: 30}) // Start game state Game() with options, in this case jaws will run Game with FPS 30
  *  jaws.start(window)          //
  *
  */
@@ -325,7 +325,7 @@ function handleKeyUp(e) {
     on_keyup_callbacks[human_name]() 
     e.preventDefault()
   }
-  if(prevent_default_keys[human_name]) { e.preventDefault() }
+  if(prevent_default_keys[human_name]&&!document.activeElement.tagName!="INPUT") { e.preventDefault() }
 }
 
 // handle event "onkeydown" by remembering what key was un-pressed
@@ -337,7 +337,7 @@ function handleKeyDown(e) {
     on_keydown_callbacks[human_name]()
     e.preventDefault()
   }
-  if(prevent_default_keys[human_name]) { e.preventDefault() }
+  if(prevent_default_keys[human_name]&&document.activeElement.tagName!="INPUT") { e.preventDefault() }
 
   // jaws.log(event.type + " - " + event.keyCode + " " + keycode_to_string[event.keyCode]);
   // e.preventDefault();
@@ -350,7 +350,6 @@ jaws.preventDefaultKeys = function(array_of_strings) {
     prevent_default_keys[item] = true
   });
 }
-
 /*
  * helper to check if a given key currently is pressed. returns true or false.
  */

@@ -39,11 +39,10 @@ var availKeys = [
 ];
 
 var inputPolling = false;
-
 function InputMonitor() {
     // give the program a global reference to me
     this.setup = function(){
-	jaws.preventDefaultKeys(availKeys);
+	    jaws.preventDefaultKeys(availKeys);
     };
     
     // do nothing
