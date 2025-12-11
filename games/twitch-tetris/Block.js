@@ -2,7 +2,7 @@ class Block {
     static invalidSpaces={};
     static allInvalidated=false;
     constructor(config) {
-        var parent, key;
+        var parent;
         config = config || {};
         this.boX = (config.boardOriginX || 0) + FIELD_OFFSET_X;
         this.boY = (config.boardOriginY || 0) + FIELD_OFFSET_Y;
@@ -10,7 +10,7 @@ class Block {
         this.blockY = config.blockY;
         this.occupiedPositions = config.occupiedPositions;
         this.addOccupied(this.blockX, this.blockY);
-        Block.invalidSpaces[this.blockX + "," + this.blockY] = true;
+        Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
         config.x = this.boX + BLOCK_WIDTH * this.blockX;
         config.y = this.boY + BLOCK_WIDTH * this.blockY;
         if (config.preview) config.image = 'media/greyblock.png';
@@ -27,11 +27,11 @@ class Block {
         Block.allInvalidated=true;
     }
     moveBlock(dx, dy) {
-        Block.invalidSpaces[this.blockX + "," + this.blockY] = true;
+        Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
         this.removeOccupied(this.blockX, this.blockY);
         this.blockX += dx;
         this.blockY += dy;
-        Block.invalidSpaces[this.blockX + "," + this.blockY] = true;
+        Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
         this.addOccupied(this.blockX, this.blockY);
         this.x += dx * BLOCK_WIDTH;
         this.y += dy * BLOCK_WIDTH;
@@ -39,14 +39,14 @@ class Block {
     setColor(shape, preview) {
         if (preview) this.setImage('media/greyblock.png');
         else this.setImage(SHAPES[shape].image);
-        Block.invalidSpaces[this.blockX + "," + this.blockY] = true;
+        Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
     }
     setPosition(blockX, blockY) {
-        Block.invalidSpaces[this.blockX + "," + this.blockY] = true;
+        Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
         this.removeOccupied(this.blockX, this.blockY);
         this.blockX = blockX;
         this.blockY = blockY;
-        Block.invalidSpaces[this.blockX + "," + this.blockY] = true;
+        Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
         this.addOccupied(this.blockX, this.blockY);
         this.x = this.boX + blockX * BLOCK_WIDTH;
         this.y = this.boY + blockY * BLOCK_WIDTH;
@@ -57,10 +57,10 @@ class Block {
         return this.blockX === x && this.blockY === y;
     }
     drawIfInvalid() {
-        if (Block.invalidSpaces[this.blockX + "," + this.blockY] || Block.allInvalidated || this.blockY < 0) this.draw();
+        if (Block.invalidSpaces[`${this.blockX},${this.blockY}`] || Block.allInvalidated || this.blockY < 0) this.draw();
     }
     kill() {
-        Block.invalidSpaces[this.blockX + "," + this.blockY] = true;
+        Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
         this.removeOccupied(this.blockX, this.blockY);
     }
     removeOccupied(x, y) {
@@ -73,7 +73,7 @@ class Block {
 	        if (this.occupiedPositions[posString] === undefined) {
 	            this.occupiedPositions[posString] = 0;
 	        }
-	        this.occupiedPositions[posString] += 1;
+	        this.occupiedPositions[posString]++;
         }
     }
 }

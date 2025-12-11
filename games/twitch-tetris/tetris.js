@@ -47,24 +47,15 @@ function Tetris(controller) {
     
 
     this.setup = function () {
-	// find the keys to stop	
-	var stoppedKeys = [],
-	curAction, i;
-	for (curAction in inputAssignments) {
-	    stoppedKeys = stoppedKeys.concat(inputAssignments[curAction]);
-	}
-	jaws.preventDefaultKeys(stoppedKeys);
-
-
-	Tetris.currentInstance = self;
-	game = new Game(inputAssignments, autoRepeatConfig, thresholdConfig);
-
-	continueButton = new Button({image: 'media/buttons/continue.png', x: 235, y: 150});
-	restartButton = new Button({image: 'media/buttons/restart.png', x: 235, y: 200});
-	
-	background = new Background();
-
-	timeOffset = (new Date()).getTime();
+	    // find the keys to stop	
+	    var stoppedKeys = structuredClone(Object.values(inputAssignments));
+	    jaws.preventDefaultKeys(stoppedKeys);
+	    Tetris.currentInstance = self;
+	    game = new Game(inputAssignments, autoRepeatConfig, thresholdConfig);
+	    continueButton = new Button({image: 'media/buttons/continue.png', x: 235, y: 150});
+	    restartButton = new Button({image: 'media/buttons/restart.png', x: 235, y: 200});
+	    background = new Background();
+	    timeOffset = (new Date()).getTime();
     };
 
     this.update = function() {
@@ -83,67 +74,57 @@ function Tetris(controller) {
 	if (!paused && !gameOver) {
 	    // see if the game should be pased
 	    if (escapePressed && (!lastEscapeState)) {
-		// go into pause mode
-		startPauseTime = realTime;
-		paused = true;
+		    // go into pause mode
+		    startPauseTime = realTime;
+		    paused = true;
 	    } else {
-		game.update(realTime - timeOffset);
-		// see if the game is over
-		scoreObject = game.getResults();
-		if (scoreObject) {
-		    gameOver = true;
-
-		    // make the game end visible
-		    document.getElementById('gameEndContainer').setAttribute('class', 'gameEndOutputVisible');
-		    gameEndTty.addLine('GOOD GAME!!!');
-		    gameEndTty.addLine('');
-		    gameEndTty.addLine('');
-		    if (scoreObject.won) {
-			gameEndTty.addLine('You Win!');
-		    } else {
-			gameEndTty.addLine('Better Luck Next Time');
+		    game.update(realTime - timeOffset);
+		    // see if the game is over
+		    scoreObject = game.getResults();
+		    if (scoreObject) {
+		        gameOver = true;
+		        // make the game end visible
+		        document.getElementById('gameEndContainer').setAttribute('class', 'gameEndOutputVisible');
+		        gameEndTty.addLine('GOOD GAME!!!');
+		        gameEndTty.addLine('');
+		        gameEndTty.addLine('');
+                gameEndTty.addLine(scoreObject.won?"You Win!":"Better Luck Next Time");
+		        gameEndTty.addLine('');
+		        gameEndTty.addLine('');
+			    /*
+		        gameEndTty.addLine('Re-directing you to');
+		        gameEndTty.addLine('the score screen...');
+			    */
+			    gameEndTty.addLine('Your score was:');
+			    gameEndTty.addLine(scoreObject.score.toString());
+		        gameEndTty.addLine('');
+		        gameEndTty.addLine('');
+                gameEndTty.addLine('Press ENTER to restart');
+		        //sendScoreRequest(scoreObject.score);
+			    /*window.setTimeout(function() {
+				    document.getElementById('gameEndContainer').setAttribute('class', 'gameEndOutputHidden');
+				    controller.restart();
+			    }, 6000);*/
 		    }
-		    gameEndTty.addLine('');
-		    gameEndTty.addLine('');
-
-			/*
-		    gameEndTty.addLine('Re-directing you to');
-		    gameEndTty.addLine('the score screen...');
-			*/
-			
-			gameEndTty.addLine('Your score was:');
-			gameEndTty.addLine(scoreObject.score.toString());
-		    gameEndTty.addLine('');
-		    gameEndTty.addLine('');
-            gameEndTty.addLine('Press ENTER to restart');
-
-		    //sendScoreRequest(scoreObject.score);
-
-			/*window.setTimeout(function() {
-				document.getElementById('gameEndContainer').setAttribute('class', 'gameEndOutputHidden');
-				controller.restart();
-			}, 6000);*/
-		}
 	    }
 	} else if (paused) {
 	    // see if the escape key was hit
 	    if (escapePressed && (!lastEscapeState)) {
-		// change the time offset
-		timeOffset += realTime - startPauseTime;
-		paused = false;
+		    timeOffset += realTime - startPauseTime;
+		    paused = false;
 	    }
 	    // see if any buttons were pressed
 	    if (mouseClick) {
-		if (continueButton.isClicked(mouseClick.x, mouseClick.y)) {
-		    // change the time offset
-		    timeOffset += realTime - startPauseTime;
-		    paused = false;
-		}
-		if (restartButton.isClicked(mouseClick.x, mouseClick.y)) {
-		    // restart the game
-		    controller.restart();
-		    return;
-		}
+		    if (continueButton.isClicked(mouseClick.x, mouseClick.y)) {
+		        // change the time offset
+		        timeOffset += realTime - startPauseTime;
+		        paused = false;
+		    }
+		    if (restartButton.isClicked(mouseClick.x, mouseClick.y)) {
+		        // restart the game
+		        controller.restart();
+		        return;
+		    }
 	    }
 	} else if (gameOver) {
 	    if (jaws.pressed('enter')) {
@@ -163,8 +144,8 @@ function Tetris(controller) {
 	    // draw the game
 	    background.draw(lastPaused);
 	    if (lastPaused) {
-		lastPaused = false;
-		Block.invalidateAll();
+		    lastPaused = false;
+		    Block.invalidateAll();
 	    }
 	    game.draw(dTime);
 	    Block.invalidFlushed();
@@ -224,14 +205,11 @@ function redirectToScore() {
 
 function sendScoreRequest(score) {
     var xmlhttp=(new XMLHttpRequest())||(new ActiveXObject("Microsoft.XMLHTTP"));
-    xmlhttp.onreadystatechange=function()
-    {
-	if (xmlhttp.readyState==4 && xmlhttp.status==200)
-	{
-	    redirCode = xmlhttp.responseText;
-
-	    setTimeout('redirectToScore();', 4000);
-	}
+    xmlhttp.onreadystatechange=()=>{
+	    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+	        redirCode = xmlhttp.responseText;
+	        setTimeout('redirectToScore();', 4000);
+	    }
     }
     
     // World's 3rd most piss-poor obfustication technique

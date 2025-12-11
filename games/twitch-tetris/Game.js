@@ -118,103 +118,76 @@ Game.prototype.newBlock = function (calledBySwap) {
 * @param {Number} dTime - the time in milliseconds since the last frame
 */
 Game.prototype.processInput = function(dTime) {
-    var curInput,
-    keyName,
-    curKeys,
-    pressed,
-    curInput,
-    i;
+    var keyName;
 
     for (actionType in this.inputMapping) {
-	curKeys = this.inputMapping[actionType];
-	curInput = this.input[actionType];
-	pressed = false;
-	for (i = 0; i < curKeys.length; i += 1) {
-	    if (jaws.pressed(curKeys[i])) {
-		pressed = true;
-	    }
-	}
-	
-	//  if the key is down
-	if (pressed) {
-	    // if it is a 'press' frame
-	    if (!curInput.lastState) {
-		curInput.handler();
-		curInput.lastState = true;
-		curInput.charged = (curInput.preCharged ? true : false);
-		curInput.holdTime = 0;
-	    }
-	    // if it supports auto-repeat
-	    if (curInput.autoRepeat) {
-		curInput.holdTime += dTime;
+	    var curKeys = this.inputMapping[actionType];
+	    var curInput = this.input[actionType];
+	    var pressed = false;
+	    for (let i = 0; i < curKeys.length; i++) if (jaws.pressed(curKeys[i])) pressed = true;
+	    //  if the key is down
+	    if (pressed) {
+	        // if it is a 'press' frame
+	        if (!curInput.lastState) {
+		        curInput.handler();
+		        curInput.lastState = true;
+		        curInput.charged = (curInput.preCharged ? true : false);
+		        curInput.holdTime = 0;
+	        }
+	        // if it supports auto-repeat
+	        if (curInput.autoRepeat) {
+		        curInput.holdTime += dTime;
 
-		// if not charged and past the charge time
-		if ((!curInput.charged) && (curInput.holdTime > this.keyChargeTime)) {
-		    // call the handler, and reset the hold time
-		    curInput.holdTime -= this.keyChargeTime;
-		    curInput.handler();
-		    curInput.charged = true;
-		}
-		// if charged and past the repeat time
-		if (curInput.charged && (curInput.holdTime > this.keyRepeatTime)) {
-		    curInput.holdTime -= this.keyRepeatTime;
-		    curInput.handler();
-		}
+		        // if not charged and past the charge time
+		        if ((!curInput.charged) && (curInput.holdTime > this.keyChargeTime)) {
+		            // call the handler, and reset the hold time
+		            curInput.holdTime -= this.keyChargeTime;
+		            curInput.handler();
+		            curInput.charged = true;
+		        }
+		        // if charged and past the repeat time
+		        if (curInput.charged && (curInput.holdTime > this.keyRepeatTime)) {
+		            curInput.holdTime -= this.keyRepeatTime;
+		            curInput.handler();
+		        }
+	        }
+	    } else {
+	        // it was released
+	        curInput.lastState = false;
 	    }
-	} else {
-	    // it was released
-	    curInput.lastState = false;
-	}
     }
 };
 
 Game.prototype.update = function(time) {
-    var curTime,
-    dTime,
-    i;
-
     // if the first block needs to be made
     if (this.firstLoop) {
-	this.firstLoop = false;
-
-	this.newBlock();
-
-	this.lastTime = time;
+	    this.firstLoop = false;
+	    this.newBlock();
+	    this.lastTime = time;
     }
-
-    curTime = time;
-    dTime = curTime - this.lastTime;
+    var curTime = time;
+    var dTime = curTime - this.lastTime;
     this.lastTime = curTime;
-
     this.processInput(dTime);
-
     if (!this.controlGroup.isBottomed()) {
-	this.lastBottomedState = false;
-	this.applyGravity(dTime);
-
+	    this.lastBottomedState = false;
+	    this.applyGravity(dTime);
     } else {
-	// if it has just touched hte bottom
-	if (!this.lastBottomedState) {
-	    this.resetLockCounter(false);
-	} else {
-	    this.bottomTimer -= dTime;
-	    
-	    if (this.bottomTimer <= 0 || this.slideCount >= 15) {
-		this.lockBlocks();
+	    // if it has just touched the bottom
+	    if (!this.lastBottomedState) this.resetLockCounter(false);
+	    else {
+	        this.bottomTimer -= dTime;
+	        if (this.bottomTimer <= 0 || this.slideCount >= 15) this.lockBlocks();
 	    }
-	}
-	this.lastBottomedState = true;
+	    this.lastBottomedState = true;
     }
-
     // update the position of the preview blocks
     if (this.controlGroup) {
-	// ask the control group to move the preview blocks
-	this.controlGroup.configurePreviewBlocks(this.previewBlocks);
+	    // ask the control group to move the preview blocks
+	    this.controlGroup.configurePreviewBlocks(this.previewBlocks);
     } else {
-	// if there is no contorl group, just move them off the screen
-	for (i = 0; i < 4; i += 1) {
-	    this.previewBlocks[i].setPosition(-10, -10);
-	}
+	    // if there is no control group, just move them off the screen
+	    for (let i = 0; i < 4; i++) this.previewBlocks[i].setPosition(-10, -10);
     }
 };
 
@@ -222,32 +195,17 @@ Game.prototype.update = function(time) {
 * Renders the entire game scene
 */
 Game.prototype.draw = function(dTime) {
-    var i;
-    
     this.scoreOutput.draw(dTime);
     this.linesOutput.draw(dTime);
     this.levelOutput.draw(dTime);
     this.tickerOutput.draw(dTime);
-
     // draw the preview blocks
-    for (i = 0; i < 4; i += 1) {
-	this.previewBlocks[i].drawIfInvalid();
-    }
-
+    for (let i = 0; i < 4; i++) this.previewBlocks[i].drawIfInvalid();
     // draw the swap block
-    if (this.swapGroup) {
-	this.swapGroup.draw();
-    }
-
+    if (this.swapGroup) this.swapGroup.draw();
     // draw the queue
-    for (i = 0; i < this.previewGroups.length; i += 1) {
-	this.previewGroups[i].draw();
-    }
-
-    for (i = 0; i < this.blocks.length; i += 1) {
-	this.blocks[i].drawIfInvalid();
-    }
-
+    for (let i = 0; i < this.previewGroups.length; i++) this.previewGroups[i].draw();
+    for (let i = 0; i < this.blocks.length; i++) this.blocks[i].drawIfInvalid();
 };
 
 /**
@@ -258,7 +216,7 @@ Game.prototype.draw = function(dTime) {
 */
 Game.prototype.isLegalPosition = function (x, y) {
     // if there is a block in the way
-    if (this.occupiedPositions[x+','+y]) return false;
+    if (this.occupiedPositions[`${x},${y}`]) return false;
     // if it's on the field
     if (x >= 10 || x < 0 || y >= 20) return false;
     return true;
