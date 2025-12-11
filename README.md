@@ -394,3 +394,8 @@ Games.
 * Prevented user input from being ignored on the TwitchTetris options page when an input element is focused
 * Prevented TwitchTetris crashing when the Piece Filter cheat was enabled without any whitelisted pieces
 * Added new button styling to TwitchTetris' options page
+### 2.5.4 (12.11.2025)
+* Continued TwitchTetris code cleanup
+* Fixed TwitchTetris misspellings
+* TwitchTetris TtyBlock class is now defined using the class keyword instead of a function
+* TwitchTetris ControlGroup class is now defined using the class keyword instead of a function
