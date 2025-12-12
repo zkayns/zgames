@@ -381,9 +381,9 @@ Games.
 * Fixed VT323 font failing to load when playing TwitchTetris locally
 * TwitchTetris swap control input now reads "Swap Piece" instead of "Swap Peice"
 * Added Constants.js file to TwitchTetris
-* TwitchTetris Block objects are now defined using the class keyword instead of a function
-* TwitchTetris PreviewGroup objects are now defined using the class keyword instead of a function
-* TwitchTetris Button objects are now defined using the class keyword instead of a function
+* TwitchTetris Block class is now defined using a class declaration instead of a function
+* TwitchTetris PreviewGroup class is now defined using a class declaration instead of a function
+* TwitchTetris Button class is defined using a class declaration instead of a function
 * User now has to press Enter before TwitchTetris will restart after a lost run
 ### 2.5.1 (12.5.2025)
 * Fixed the TwitchTetris RandomBag being unable to choose a piece if all of the available pieces were already in the queue
@@ -397,5 +397,10 @@ Games.
 ### 2.5.4 (12.11.2025)
 * Continued TwitchTetris code cleanup
 * Fixed TwitchTetris misspellings
-* TwitchTetris TtyBlock class is now defined using the class keyword instead of a function
-* TwitchTetris ControlGroup class is now defined using the class keyword instead of a function
+* TwitchTetris TtyBlock class is now defined using a class declaration instead of a function
+* TwitchTetris ControlGroup class is now defined using a class declaration instead of a function
+### 2.5.5 (12.12.2025) - Seeecret Friday 10!
+* TwitchTetris TtyBlock.prototype.addLine function can now print multiple lines at once
+* TwitchTetris ScoreTracker class is now defined using a class declaration instead of a function
+* TwitchTetris RandomBag class is now defined using a class declaration instead of a function
+* Continued TwitchTetris code cleanup
