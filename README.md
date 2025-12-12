@@ -405,3 +405,4 @@ Games.
 * TwitchTetris RandomBag class is now defined using a class declaration instead of a function
 * Continued TwitchTetris code cleanup
 * Fixed CheatsArea being misaligned by different viewport sizes on the TwitchTetris options menu
+* Fixed the homepage navbar logo incorrectly showing a tooltip when hovered
