@@ -199,8 +199,8 @@ input[type="number"], input[type="text"] {
     padding: 5px 10px;
     width: 560px;
     position: absolute;
-    top: 350px;
-    left: 469px;
+    top: 335px;
+    left: 0px;
 }
 .autoRepeatForm
 {
