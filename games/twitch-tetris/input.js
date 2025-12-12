@@ -50,19 +50,12 @@ function InputMonitor() {
 
     // polls the keys if appropriate
     this.update = function() {
-	var i,
-	pressed;
-	
-	for (i = 0;
-	     i < availKeys.length && inputPolling;
-	     i += 1) {
-	    
-	    pressed = jaws.pressed(availKeys[i]);
-	    if (pressed) {
-		reportKeyPressed(availKeys[i]);
-		inputPolling = false;
-		break;
+	    for (let i = 0; i < availKeys.length && inputPolling; i++) {
+	        if (jaws.pressed(availKeys[i])) {
+		        reportKeyPressed(availKeys[i]);
+		        inputPolling = false;
+		        break;
+	        }
 	    }
-	}
     }
 }

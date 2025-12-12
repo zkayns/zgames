@@ -27,18 +27,18 @@ class ControlGroup {
 	        // see if the block placement is illegal before placing
 	        this.isIllegalStart=!this.isLegalCallback(newX, newY)
 	        this.blocks[i].setPosition(newX, newY);
-        }
+        };
         this.updateBottomedState();
-    }
+    };
     updateBottomedState() {
         for (let i = 0; i < this.blocks.length; i++) {
 	        if (!this.isLegalPosition(this.blocks[i].getX(), this.blocks[i].getY() + 1)) {
 	            this.bottomed = true;
 	            return;
-	        }
-        }
+	        };
+        };
         this.bottomed = false;
-    }
+    };
     /**
     * if the position is legal
     * @param {Number} x
@@ -50,7 +50,7 @@ class ControlGroup {
         for (let i = 0; i < 4; i++) if (this.blocks[i].isPosition(x, y)) return true;
         // if it's still not proven legal, then defer to the game to decide
         return this.isLegalCallback(x, y);
-    }
+    };
     /**
     * Shift the block left or right
     * @param {Boolean} left - true to shift left false to shift right
@@ -64,7 +64,7 @@ class ControlGroup {
         for (let i = 0; i < this.blocks.length; i++) this.blocks[i].moveBlock(dx, 0);
         this.updateBottomedState();
         return true;
-    }
+    };
     /**
     * Drop the block by one
     */
@@ -75,7 +75,7 @@ class ControlGroup {
         this.baseY++;
         for (let i = 0; i < this.blocks.length; i++) this.blocks[i].moveBlock(0, 1);
         this.updateBottomedState();
-    }
+    };
     /**
     * Sets the preview blocks to the approproriate positions
     * @param {[Block]} previews - the 4 blocks to be modified to be put into position as preview blocks
@@ -83,7 +83,7 @@ class ControlGroup {
     configurePreviewBlocks(previews) {
         var positions = this.getFallPositions().positions;
         for (let i = 0; i < 4; i++) previews[i].setPosition(positions[i].x, positions[i].y);
-    }
+    };
     /*
     * Gets the type of T spin that the group is in
     * @returns {String} 'mini' for a mini-t, 'normal' for a normal t, null for not a t spin
@@ -104,22 +104,20 @@ class ControlGroup {
 	        let curPoint = testPoints[i]
 	        if (!this.isLegalPosition(this.baseX + curPoint.x, this.baseY + curPoint.y)) count++;
 	        else if (curPoint.miniCheck) mini = true;
-        }
+        };
 
         if (count >= 3) {
-	        if (mini) {
-	            return 'mini';
-	        }
+	        if (mini) return 'mini';
 	        return 'normal';
-        }
+        };
         return null;
-    }
+    };
     /**
     * @returns {Boolean} true if the block is bottomed and another should spawn
     */
     isBottomed() {
         return this.bottomed;
-    }
+    };
     /**
     * Turns the block
     * @param {Boolean} cw - true for clockwise, false for counter-clockwise
@@ -133,7 +131,7 @@ class ControlGroup {
 	        var kick = availableKicks[i];
 	        var newPos = this.tryTurn(cw, kick);
 	        if (newPos) break;
-        }
+        };
         // if there s still no valid rotation, fail
         if (!newPos) return false;
         this.lastWasSpin = true;
@@ -148,10 +146,10 @@ class ControlGroup {
 	    } else {
 	        this.dir--;
 	        if (this.dir === -1) this.dir = 3;
-        }
+        };
         this.updateBottomedState();
         return true;
-    }
+    };
     /**
     * makes the block fall all the way to the bottom
     * forces the next cycle to be recognized as bottomed
@@ -166,16 +164,16 @@ class ControlGroup {
         for (let i = 0; i < 4; i++) {
 	        var curPos = positions[i];
 	        this.blocks[i].setPosition(curPos.x, curPos.y);
-        }
+        };
         this.bottomed = true;
         return dist;
-    }
+    };
     getBlocks() {
         return this.blocks;
-    }
+    };
     getShape() {
         return this.shape;
-    }
+    };
     /**
     * Gets the positions that the block will use when it falls
     * @returns {Object} {dist:{Number}, positions: {[Object]} array of hashs of {x: Number, y: Number}}
@@ -196,16 +194,16 @@ class ControlGroup {
 		            // back up one and stop dropping
 		            dist--;
 		            notDone = false;
-	            }
-	        }
-        }
+	            };
+	        };
+        };
         // for each block
         for (let i = 0; i < 4; i++) {
 	        let curBlock = this.blocks[i];
 	        res.push({x: curBlock.getX(), y: curBlock.getY() + dist});
-        }
+        };
         return {dist: dist, positions: res};
-    }
+    };
     /**
     * Checks if the given rotation and kick is valid.
     * @param {Boolean} cw - true if cw, false if ccw
@@ -220,7 +218,7 @@ class ControlGroup {
 	            let newY = (cw ? 1 : -1) * (this.blocks[i].blockX - this.baseX) + this.baseY + kick.y;
 
 	            newPos[i] = {x: newX, y: newY};
-	        }
+	        };
         } else {
 	        // point turning
 	        for (let i = 0; i < this.blocks.length; i++) {
@@ -237,13 +235,13 @@ class ControlGroup {
 	            if (newY > 0) newY--;
 
 	            newPos[i] = {x: newX + this.baseX + kick.x, y: newY + this.baseY + kick.y};
-	        }
-        }
+	        };
+        };
         // for each block
         for (let i = 0; i < 4; i++) {
 	        let curPos = newPos[i];
 	        if (!this.isLegalPosition(curPos.x, curPos.y)) return null;
-        }
+        };
         return newPos;
-    }
-}
+    };
+};

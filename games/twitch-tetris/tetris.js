@@ -86,19 +86,16 @@ function Tetris(controller) {
 		        // make the game end visible
 		        document.getElementById('gameEndContainer').setAttribute('class', 'gameEndOutputVisible');
 		        gameEndTty.addLine('GOOD GAME!!!');
-		        gameEndTty.addLine('');
-		        gameEndTty.addLine('');
+		        gameEndTty.addLine('', '');
                 gameEndTty.addLine(scoreObject.won?"You Win!":"Better Luck Next Time");
-		        gameEndTty.addLine('');
-		        gameEndTty.addLine('');
+		        gameEndTty.addLine('', '');
 			    /*
 		        gameEndTty.addLine('Re-directing you to');
 		        gameEndTty.addLine('the score screen...');
 			    */
 			    gameEndTty.addLine('Your score was:');
 			    gameEndTty.addLine(scoreObject.score.toString());
-		        gameEndTty.addLine('');
-		        gameEndTty.addLine('');
+		        gameEndTty.addLine('', '');
                 gameEndTty.addLine('Press ENTER to restart');
 		        //sendScoreRequest(scoreObject.score);
 			    /*window.setTimeout(function() {
@@ -146,7 +143,7 @@ function Tetris(controller) {
 	    if (lastPaused) {
 		    lastPaused = false;
 		    Block.invalidateAll();
-	    }
+	    };
 	    game.draw(dTime);
 	    Block.invalidFlushed();
 
@@ -164,7 +161,7 @@ function Tetris(controller) {
 	    // draw the game
 	    background.draw();
 	    game.draw(dTime);
-	}
+	};
 
 	gameEndTty.draw(dTime);
     };

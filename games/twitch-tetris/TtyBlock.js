@@ -56,9 +56,11 @@ class TtyBlock {
         outputString.replace('>', '&gt');
         this.elem.innerHTML = outputString;
     }
-    addLine(str) {
-        // if the backlog is too long, then remove the last 3 values
-        if (this.backlog.length > this.rollOverLength) this.backlog.splice(this.backlog.length - this.rollOverRemove, this.rollOverRemove);
-        this.backlog.push(`   > ${str}`);
+    addLine() {
+        Object.values(arguments).forEach(str=>{
+            // if the backlog is too long, then remove the last 3 values
+            if (this.backlog.length > this.rollOverLength) this.backlog.splice(this.backlog.length - this.rollOverRemove, this.rollOverRemove);
+            this.backlog.push(`   > ${str}`);
+        });
     }
 }
