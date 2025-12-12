@@ -140,14 +140,11 @@ function updateLogs() {
     logs.value = ""
     for (let i = 0; i < console.everything.length; i++) {
         var logMessage = Object.values(console.everything[i]).join(" ")
-        if (Object.values(console.everything[i])[2] == "[object Object]") {
-        logs.value = [logs.value, logMessage, Object.values(Object.values(console.everything[i])[2]).join(" ")].join("\n")
-        } else {
-        logs.value = [logs.value, logMessage].join("\n")
-        }
-    }
+        if (Object.values(console.everything[i])[2] == "[object Object]") logs.value = [logs.value, logMessage, Object.values(Object.values(console.everything[i])[2]).join(" ")].join("\n");
+        else logs.value = [logs.value, logMessage].join("\n");
+    };
     logs.value = logs.value.slice(1);
-}
+};
 const injectCSS = css => {
   let el = document.createElement('style');
   el.type = 'text/css';
@@ -161,14 +158,11 @@ function updateTime() {
     var ampm = "AM";
     var seconds = String(d.getSeconds()).padStart(2, "0");
     var minutes = String(d.getMinutes()).padStart(2, "0");
-    if (d.getHours() == 0) {
-        var hours = 12
-    } else if (d.getHours() >= 13) {
+    if (d.getHours() == 0) var hours = 12;
+    else if (d.getHours() >= 13) {
         ampm = "PM";
         var hours = d.getHours() - 12;
-    } else {
-        var hours = d.getHours();
-    } 
+    } else var hours = d.getHours();
     if (d.getHours() == 12) ampm = "PM";
     var monthAsName = months[d.getMonth()];
     var timeformatted = [hours % 13, ":", minutes, ":", seconds, " ", ampm, ", ", monthAsName, " ", d.getDate(), ", ", d.getFullYear()].join("");
@@ -176,56 +170,49 @@ function updateTime() {
 }
 function savejs() {
     localStorage.setItem("autoload", customjs.value.toString());
-}
-if (localStorage.getItem("autoload")) {
-    eval(localStorage.getItem("autoload"));
-}
+};
+if (localStorage.getItem("autoload")) eval(localStorage.getItem("autoload"));
 function clearjs() {
     localStorage.removeItem("autoload");
-}
+};
 function getjs() {
-    customjs.value = localStorage.getItem("autoload")
-}
+    customjs.value = localStorage.getItem("autoload");
+};
 function clearlogs() {
-    logs.value = ""
-    console.everything = []
-}
+    logs.value = "";
+    console.everything = [];
+};
 document.onkeypress = function (e) {
-    keyspressed.push(e.key)
-    lastpressedkey = keyspressed.slice(-1)
-    keyspressed2.push(e.key)
-    var shift = e.shiftKey
-    var ctrl = e.ctrlKey
-    var alt = e.altKey
-    lookout()
-    if (e.key == "E" && e.metaKey /*e.metaKey?? what was i on when i made this*/) {
-        emergency()
-    }
+    keyspressed.push(e.key);
+    lastpressedkey = keyspressed.slice(-1);
+    keyspressed2.push(e.key);
+    var shift = e.shiftKey;
+    var ctrl = e.ctrlKey;
+    var alt = e.altKey;
+    lookout();
+    if (e.key == "E" && e.metaKey) emergency();
 };
 function lookout() {
     // put smth here idk
-}
+};
 function clearkeyspressed(temp) {
-    if (temp == 0) {
-        keyspressed = []
-    } else {
-        keyspressed2 = []
-    }
-}
+    if (temp == 0) keyspressed = [];
+    else keyspressed2 = [];
+};
 function emergency() {
-    window.open(localStorage.getItem("emergency"))
-}
+    window.open(localStorage.getItem("emergency"));
+};
 function comicsans() {
     // thats crazy
     injectCSS('button { font-family: "Comic Sans MS", "Comic Sans", cursive !important; }'); injectCSS('body { font-family: "Comic Sans MS", "Comic Sans", cursive !important; }'); injectCSS('input { font-family: "Comic Sans MS", "Comic Sans", cursive !important; }'); injectCSS('textarea { font-family: "Comic Sans MS", "Comic Sans", cursive !important; }');
-}
+};
 function share() {
     var data = {
         title: "ZGames",
         url: "https://zkayns.github.io/zgames"
-    }
-    navigator.share(data)
-}
+    };
+    navigator.share(data);
+};
 /* EXAMPLE TOAST Toastify({   
     text: "This is a toast",   
     duration: 3000,   
@@ -239,14 +226,11 @@ function share() {
 /* color references
 error #eb3440
 */
-tippy('img', {
-    content: (reference) => reference.alt,
-    animation: 'scale-subtle',
+tippy('a img', {
+    content: (reference)=>reference.alt,
+    animation: 'scale-subtle'
 });
 function toggleConsole() {
-  if (cons.style.display === "none") {
-    cons.style.display = "block";
-  } else {
-    cons.style.display = "none";
-  }
-}
+  if (cons.style.display === "none") cons.style.display = "block";
+  else cons.style.display = "none";
+};
