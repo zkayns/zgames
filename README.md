@@ -404,3 +404,4 @@ Games.
 * TwitchTetris ScoreTracker class is now defined using a class declaration instead of a function
 * TwitchTetris RandomBag class is now defined using a class declaration instead of a function
 * Continued TwitchTetris code cleanup
+* Fixed CheatsArea being misaligned by different viewport sizes on the TwitchTetris options menu
