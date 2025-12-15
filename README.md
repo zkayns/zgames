@@ -419,3 +419,5 @@ Games.
 * Homepage button elements now use the pointer cursor
 * Changed TwitchTetris options menu range input accent color
 * TwitchTetris options menu slider thumb now uses the pointer cursor
+### 2.5.7 (12.15.2025)
+* Added new range input styling to TwitchTetris' options menu
