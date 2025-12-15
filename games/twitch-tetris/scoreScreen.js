@@ -2,12 +2,12 @@ function $_GET(q) {
     var s = window.location.search; 
     var re = new RegExp('&'+q+'(?:=([^&]*))?(?=&|$)','i'); 
     return (s=s.replace(/^\?/,'&').match(re)) ? (typeof s[1] == 'undefined' ? '' : decodeURIComponent(s[1])) : undefined; 
-}
+};
 
 function getXmlHttp() {
     if (window.XMLHttpRequest) return new XMLHttpRequest();
     else return new ActiveXObject("Microsoft.XMLHTTP");
-}
+};
 
 function scoreScreenOnLoad() {
     var sessionRef = $_GET('tempRef');
@@ -22,25 +22,25 @@ function scoreScreenOnLoad() {
 	        if (response.dailyRank > 0) {
 		        output+=`<tr><td class="resultsLeft">Daily Rank:</td><td class="resultsRight">${response.dailyRank}</td></tr>`;
 		        ranked = true;
-		    }
+		    };
 	        if (response.totalRank > 0) {
 		        output+=`<tr><td class="resultsLeft">Total Rank:</td><td class="resultsRight">${response.totalRank}</td></tr>`;
 		        ranked = true;
-	        }
+	        };
 	        output+='</table><br/><br/><br/>';
 	        document.getElementById("scoreDiv").innerHTML = output;
 	        // if ranked, prompt for a name
 	        if (ranked) document.getElementById("applyNameDiv").setAttribute('class', 'applyNameVisible');
-	    }
-    }
+	    };
+    };
     xmlhttp.open("POST", `/score/postGame?tempRef=${sessionRef}`, true);
     xmlhttp.send();
-}
+};
 
 function nameKeyDown(e) {
     var keycode=e.keyCode||e.which;
 	applyName();
-}
+};
 
 function applyName() {
     var sessionRef = $_GET('tempRef');
@@ -55,8 +55,8 @@ function applyName() {
     xmlhttp.send();
 
     return false;
-}
+};
 
 function trySubmitName() {
     applyName();
-}
+};

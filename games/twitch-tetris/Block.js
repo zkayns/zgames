@@ -13,8 +13,8 @@ class Block {
         Block.invalidSpaces[`${this.blockX},${this.blockY}`] = true;
         config.x = this.boX + BLOCK_WIDTH * this.blockX;
         config.y = this.boY + BLOCK_WIDTH * this.blockY;
-        if (config.preview) config.image = 'media/greyblock.png';
-        else if (config.empty) config.image = 'media/emptyblock.png';
+        if (config.preview) config.image = TEXTURE_INDEX["greyblock"];
+        else if (config.empty) config.image = TEXTURE_INDEX["emptyblock"];
         else config.image = SHAPES[config.shape].image;
         parent = new jaws.Sprite(config);
         for (let key in parent) this[key] = parent[key];

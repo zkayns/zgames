@@ -14,7 +14,7 @@ Game.prototype.getRows = function () {
 	    // if the row is full
 	    if (rows[curRow] === 10) {
             res.push(curRow);
-            if (this.blocks[i].getY()>=20-Cheats.rowBlocker.count&&Cheats.rowBlocker.enabled) res.pop();
+            if (this.blocks[i].getY()>=20-Cheats.rowBlocker.count&&Cheats.rowBlocker.enabled&&Cheats.rowBlocker.count>=1) res.pop();
         };
     };
     return res;
@@ -32,7 +32,7 @@ Game.prototype.removeRows = function (rows) {
 	    remove[rows[i]] = true;
 	    // every row above this should be dropped another spot
 	    for (let j = -4; j < rows[i]; j++) dropDist[j]++;
-    }
+    };
 
     // for each block
     for (let i = 0; i < this.blocks.length; i++) {
@@ -46,8 +46,8 @@ Game.prototype.removeRows = function (rows) {
 	    } else {
 	        // it is being dropped
 	        curBlock.setPosition(curBlock.getX(), curBlock.getY() + dropDist[curY]);
-	    }
-    }
+	    };
+    };
 };
 
 Game.prototype.removeBlock = function(index) {
@@ -62,7 +62,7 @@ Game.prototype.applyGravity = function (dTime) {
     while (this.timeToNextDrop < 0 && !this.controlGroup.isBottomed()) {
 	    this.dropBlock(true);
 	    this.timeToNextDrop += this.dropPeriod;
-    }
+    };
 
     // if it exited through bottoming, reset the drop period
     if (this.controlGroup.isBottomed()) this.timeToNextDrop = this.dropPeriod;
@@ -101,9 +101,9 @@ Game.prototype.swap = function(force) {
 	        if (oldBlocks[j] === this.blocks[i]) {
 		        this.removeBlock(i);
 		        i--;
-	        }
-	    }
-    }
+	        };
+	    };
+    };
     
     // if there is a block waiting
     if (this.swapGroup) {
@@ -111,9 +111,9 @@ Game.prototype.swap = function(force) {
 	for (let i = 0; i < 4; i++) {
 	    newBlocks.push(new Block({blockX:-10, blockY:-10, shape: newShape, occupiedPositions: this.occupiedPositions}));
 	    this.blocks.push(newBlocks[i]);
-	}
+	};
 	
-	this.controlGroup = new ControlGroup(newBlocks, newShape, function(x, y){
+	this.controlGroup = new ControlGroup(newBlocks, newShape, (x, y)=>{
 	    return thisObject.isLegalPosition(x, y);
 	});
 

@@ -26,8 +26,7 @@ class ScoreTracker {
         var linesCleared = 0,
         isBonus = false,
         scoreDiff = 0,
-        tickerLines = [],
-        i;
+        tickerLines = [];
 
         if (config.miniT) {
 	        // mini t spin, 1 for no lines, 2 for 1 line
@@ -46,29 +45,10 @@ class ScoreTracker {
             scoreDiff+=(config.lines+1)*400*this.level;
         } else if (config.lines > 0) {
 	        // plain old line clears
-	        switch (config.lines) {
-	            case 1:
-	                tickerLines.push("Single");
-	                linesCleared++;
-	                scoreDiff += 100 * this.level;
-	                break;
-	            case 2:
-	                tickerLines.push("Double");
-	                linesCleared += 3;
-	                scoreDiff += 300 * this.level;
-	                break;
-	            case 3:
-	                tickerLines.push("Triple");
-	                linesCleared += 5;
-	                scoreDiff += 500 * this.level;
-	                break;
-	            case 4:
-	                tickerLines.push("TETRIS");
-	                linesCleared += 8;
-	                isBonus = true;
-	                scoreDiff += 800 * this.level;
-	                break;
-	        };
+            tickerLines.push(["Single", "Double", "Triple", "TETRIS"][config.lines-1]);
+            linesCleared+=[1, 3, 5, 8][config.lines-1];
+            scoreDiff+=[100, 300, 500, 800][config.lines-1]*this.level;
+            isBonus=config.lines==4;
         };
 
         // apply the combo
@@ -105,7 +85,7 @@ class ScoreTracker {
         this.outputScore();
 
         if (tickerLines.length === 0) this.tickerOutput.addLine("");
-        else for (i = 0; i < tickerLines.length; i++) this.tickerOutput.addLine(tickerLines[i]);
+        else for (let i = 0; i < tickerLines.length; i++) this.tickerOutput.addLine(tickerLines[i]);
     };
     softDrop() { this.score++; };
     hardDrop(dist) { this.score+=2*dist; };

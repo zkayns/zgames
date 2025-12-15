@@ -13,14 +13,14 @@ class Background {
 	        for (let y = 0; y < this.height; y++) {
 	            let curTile = new Block({ empty: true, blockX: x, blockY: y });
 	            this.tiles.push(curTile);
-	        }
-        }
+	        };
+        };
 
-        this.backdrop = new jaws.Sprite({image: 'media/background/backdrop.png'});
+        this.backdrop = new jaws.Sprite({image: TEXTURE_INDEX["backdrop"]});
         this.backdrop.x = 0;
         this.backdrop.y = 0;
 
-        this.topBar = new jaws.Sprite({image: 'media/background/topbar.png'});
+        this.topBar = new jaws.Sprite({image: TEXTURE_INDEX["topbar"]});
         this.topBar.x = 181;
         this.topBar.y = 0;
 
@@ -34,7 +34,7 @@ class Background {
         } else {
 	        this.topBar.draw();
 	        // clear the swap group / previews
-	        jaws.context.fillstyle = "#000D00";
+	        jaws.context.fillStyle = "#000D00";
 	        jaws.context.fillRect(24, 42, 118, 60);
 	        jaws.context.fillRect(457, 18, 107, 341);
 	        for (let i = 0; i < this.tiles.length; i++) this.tiles[i].drawIfInvalid();

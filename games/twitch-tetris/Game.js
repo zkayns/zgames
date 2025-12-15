@@ -43,7 +43,7 @@ function Game(inputMapping, autoRepeat, threshold) {
     // the currently occupied positions, number of blocks at a position
     // indexed by the position as a string
     this.occupiedPositions = {};
-    if (Cheats.rowBlocker.enabled) for (let i in new Uint8Array(Cheats.rowBlocker.count)) for (let x in new Uint8Array(10)) this.blocks.push(new Block({blockX: x, blockY: 19-i, shape: "o", occupiedPositions: this.occupiedPositions}));
+    if (Cheats.rowBlocker.enabled&&Cheats.rowBlocker.count>=1) for (let i in new Uint8Array(Cheats.rowBlocker.count)) for (let x in new Uint8Array(10)) this.blocks.push(new Block({blockX: x, blockY: 19-i, shape: "o", occupiedPositions: this.occupiedPositions}));
     this.input = {
 	    shiftLeft: { 
 	        autoRepeat: true,
@@ -91,7 +91,7 @@ function Game(inputMapping, autoRepeat, threshold) {
     this.inputMapping = inputMapping;
     if (Cheats.pieceBinds.enabled) {
         pieces.forEach(piece=>{
-            jaws.on_keydown(piece, (e)=>{
+            jaws.on_keydown(pieces.indexOf(piece)+1, (e)=>{
                 if (!this.swapGroup) this.swapGroup = new PreviewGroup(-100, 60);
                 this.swapGroup.setShape(piece);
                 this.swap(true);
