@@ -273,6 +273,7 @@ nav h1 {
     z-index: 1;
     outline: none;
     transition: 0.15s;
+    cursor: pointer;
 }
 .button:hover {
     transition: 0.15s;
