@@ -8,6 +8,13 @@ var Cheats={
         enabled: false
     },
     /*
+    Piece Binds
+        Allows the user to force a certain block into their hand by pressing its corresponding key.
+    */
+    pieceBinds: {
+        enabled: false
+    },
+    /*
     Block/Piece Filter
         Only pieces in the whitelist will be allowed in the random bag.
         Any piece in the blacklist array will not be allowed in the random bag.
@@ -25,6 +32,14 @@ var Cheats={
     randomSeed: {
         enabled: false,
         seed: 1
+    },
+    /*
+    Row Blocker
+        Shortens the playing field by filling a certain number of rows with blocks.
+    */
+    rowBlocker: {
+        enabled: false,
+        count: 1
     }
 };
 function readCheatCookies() {
@@ -47,6 +62,7 @@ function changeSeed(newSeed) {
     seed=newSeed;
     realTable=wrapShift(randomTable, seed);
 };
+var pieces=['i', 'o', 'j', 'l', 'z', 's', 't'];
 var seed=Cheats.randomSeed.seed*Cheats.randomSeed.enabled*Cheats.enabled||Math.floor(Math.random()*randomTable.length);
 var realTable=wrapShift(randomTable, seed);
 var randomIndex=0;

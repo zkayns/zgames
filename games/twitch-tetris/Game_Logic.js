@@ -12,8 +12,11 @@ Game.prototype.getRows = function () {
 	    let curRow = this.blocks[i].getY();
 	    rows[curRow]++;
 	    // if the row is full
-	    if (rows[curRow] === 10) res.push(curRow);
-    }
+	    if (rows[curRow] === 10) {
+            res.push(curRow);
+            if (this.blocks[i].getY()>=20-Cheats.rowBlocker.count&&Cheats.rowBlocker.enabled) res.pop();
+        };
+    };
     return res;
 };
 
@@ -76,7 +79,7 @@ Game.prototype.updatePreviews = function(queue) {
 /**
 * called when the user attempts to swap a block
 */
-Game.prototype.swap = function() {
+Game.prototype.swap = function(force) {
     var newShape,
     oldShape = this.controlGroup.getShape(),
     oldBlocks = this.controlGroup.getBlocks(),
@@ -84,7 +87,7 @@ Game.prototype.swap = function() {
     thisObject = this;
 
     // can only be called once per drop
-    if (!this.swapAllowed&&!cheatEnabled("multiHold")) return;
+    if (!this.swapAllowed&&!cheatEnabled("multiHold")&&!force) return;
     this.swapAllowed = false;
 
     // Reset the locking
@@ -127,7 +130,7 @@ Game.prototype.swap = function() {
 };
 
 /**
-* locks the currnt piece in, registers lines and makes a new block
+* locks the current piece in, registers lines and makes a new block
 */
 Game.prototype.lockBlocks = function() {
     // figure out if it a t-spin/t-spin mini

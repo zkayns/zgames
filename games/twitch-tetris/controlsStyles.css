@@ -201,6 +201,8 @@ input[type="number"], input[type="text"] {
     position: absolute;
     top: 335px;
     left: 0px;
+    max-height: 327px;
+    overflow: auto;
 }
 .autoRepeatForm
 {

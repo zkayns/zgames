@@ -223,6 +223,9 @@ function loadCheats() {
     if (readCookie("Cheats.pieceFilter.whitelist")) readSpecialCookie("Cheats.pieceFilter.whitelist").forEach(piece=>{
         document.getElementById(`${piece}Piece`).checked=true;
     });
+    if (readCookie("Cheats.rowBlocker.enabled")&&readSpecialCookie("Cheats.rowBlocker.enabled")==true) document.getElementById("rowBlocker").checked=true;
+    if (readCookie("Cheats.rowBlocker.count")) document.getElementById("rowCount").value=readSpecialCookie("Cheats.rowBlocker.count");
+    if (readCookie("Cheats.pieceBinds.enabled")&&readSpecialCookie("Cheats.pieceBinds.enabled")==true) document.getElementById("pieceBinds").checked=true;
 };
 loadCheats();
 function updateCheatState() {
@@ -236,6 +239,9 @@ function updateCheatState() {
         if ((new RegExp(".Piece", "i")).test(el.id)&&el?.checked) whitelistArray.push(el.id[0]);
     });
     createCookie("Cheats.pieceFilter.whitelist", `OBJECT_${JSON.stringify(whitelistArray)}`, 1000);
+    createCookie("Cheats.rowBlocker.enabled", `BOOLEAN_${document.getElementById("rowBlocker").checked}`, 1000);
+    createCookie("Cheats.rowBlocker.count", `NUMBER_${document.getElementById("rowCount").value}`, 1000);
+    createCookie("Cheats.pieceBinds.enabled", `BOOLEAN_${document.getElementById("pieceBinds").checked}`, 1000);
 };
 setInterval(updateCheatState, 16);
 jaws.clearPreventedKeys();

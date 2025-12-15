@@ -43,7 +43,7 @@ function Game(inputMapping, autoRepeat, threshold) {
     // the currently occupied positions, number of blocks at a position
     // indexed by the position as a string
     this.occupiedPositions = {};
-
+    if (Cheats.rowBlocker.enabled) for (let i in new Uint8Array(Cheats.rowBlocker.count)) for (let x in new Uint8Array(10)) this.blocks.push(new Block({blockX: x, blockY: 19-i, shape: "o", occupiedPositions: this.occupiedPositions}));
     this.input = {
 	    shiftLeft: { 
 	        autoRepeat: true,
@@ -89,7 +89,16 @@ function Game(inputMapping, autoRepeat, threshold) {
         }
     };
     this.inputMapping = inputMapping;
-}
+    if (Cheats.pieceBinds.enabled) {
+        pieces.forEach(piece=>{
+            jaws.on_keydown(piece, (e)=>{
+                if (!this.swapGroup) this.swapGroup = new PreviewGroup(-100, 60);
+                this.swapGroup.setShape(piece);
+                this.swap(true);
+            });
+        });
+    };
+};
 
 /**
 * drops a new block into the game
@@ -119,7 +128,6 @@ Game.prototype.newBlock = function (calledBySwap) {
 */
 Game.prototype.processInput = function(dTime) {
     var keyName;
-
     for (actionType in this.inputMapping) {
 	    var curKeys = this.inputMapping[actionType];
 	    var curInput = this.input[actionType];
