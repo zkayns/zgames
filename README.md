@@ -417,3 +417,5 @@ Games.
 * Added Bloons TD 3 to Ruffle's SWF picker
 * Added Bloons TD 4 to Ruffle's SWF picker
 * Homepage button elements now use the pointer cursor
+* Changed TwitchTetris options menu range input accent color
+* TwitchTetris options menu slider thumb now uses the pointer cursor
