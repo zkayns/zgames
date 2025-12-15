@@ -404,5 +404,10 @@ Games.
 * TwitchTetris ScoreTracker class is now defined using a class declaration instead of a function
 * TwitchTetris RandomBag class is now defined using a class declaration instead of a function
 * Continued TwitchTetris code cleanup
-* Fixed CheatsArea being misaligned by different viewport sizes on the TwitchTetris options menu
+* Fixed CheatsArea being misaligned by different viewport sizes in the TwitchTetris options menu
 * Fixed the homepage navbar logo incorrectly showing a tooltip when hovered
+### 2.5.6 (12.15.2025)
+* Removed old Cheats.js and RandomStuff.js from TwitchTetris
+* Added TwitchTetris Row Blocker cheat
+* Added TwitchTetris Piece Binds cheat
+* Fixed CheatsArea incorrectly overflowing in the TwitchTetris options menu
