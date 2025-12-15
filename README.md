@@ -416,3 +416,4 @@ Games.
 * Added Bloons TD 2 to Ruffle's SWF picker
 * Added Bloons TD 3 to Ruffle's SWF picker
 * Added Bloons TD 4 to Ruffle's SWF picker
+* Homepage button elements now use the pointer cursor
