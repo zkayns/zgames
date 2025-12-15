@@ -412,3 +412,7 @@ Games.
 * Added TwitchTetris Piece Binds cheat
 * Fixed CheatsArea incorrectly overflowing in the TwitchTetris options menu
 * Updated Ruffle to nightly build 2025_12_15
+* Added Bloons TD to Ruffle's SWF picker
+* Added Bloons TD 2 to Ruffle's SWF picker
+* Added Bloons TD 3 to Ruffle's SWF picker
+* Added Bloons TD 4 to Ruffle's SWF picker
