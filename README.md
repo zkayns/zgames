@@ -411,3 +411,4 @@ Games.
 * Added TwitchTetris Row Blocker cheat
 * Added TwitchTetris Piece Binds cheat
 * Fixed CheatsArea incorrectly overflowing in the TwitchTetris options menu
+* Updated Ruffle to nightly build 2025_12_15
