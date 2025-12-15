@@ -393,7 +393,7 @@ Games.
 ### 2.5.3 (12.10.2025) - Seeecret Wednesday 4!
 * Prevented user input from being ignored on the TwitchTetris options page when an input element is focused
 * Prevented TwitchTetris crashing when the Piece Filter cheat was enabled without any whitelisted pieces
-* Added new button styling to TwitchTetris' options page
+* Added new button styling to TwitchTetris options page
 ### 2.5.4 (12.11.2025)
 * Continued TwitchTetris code cleanup
 * Fixed TwitchTetris misspellings
@@ -420,4 +420,10 @@ Games.
 * Changed TwitchTetris options menu range input accent color
 * TwitchTetris options menu slider thumb now uses the pointer cursor
 ### 2.5.7 (12.15.2025)
-* Added new range input styling to TwitchTetris' options menu
+* Added new range input styling to TwitchTetris options menu
+* Negative values for TwitchTetris Random Seed cheat no longer crash the game
+* Negative values for TwitchTetris Row Blocker cheat no longer crash the game
+* TwitchTetris Piece Binds cheat now binds number keys
+* Fixed parts of the TwitchTetris UI rendering with the wrong color due to a capitalization error
+* TwitchTetris now has a texture index defined in Constants.js
+* Continued TwitchTetris code cleanup
