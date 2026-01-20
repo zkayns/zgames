@@ -428,4 +428,4 @@ Games.
 * TwitchTetris now has a texture index defined in Constants.js
 * Continued TwitchTetris code cleanup
 ### 2.5.8 (1.20.2025)
-* Added rPlatformer
+* Added RPlatformer
