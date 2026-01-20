@@ -427,3 +427,5 @@ Games.
 * Fixed parts of the TwitchTetris UI rendering with the wrong color due to a capitalization error
 * TwitchTetris now has a texture index defined in Constants.js
 * Continued TwitchTetris code cleanup
+### 2.5.8 (1.20.2025)
+* Added rPlatformer
