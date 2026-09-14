@@ -429,3 +429,24 @@ Games.
 * Continued TwitchTetris code cleanup
 ### 2.5.8 (1.20.2025)
 * Added RPlatformer
+### 2.5.9 (9.14.2026)
+* Fixed 1v1.LOL
+* Fixed Soccer Random
+* Fixed Volley Random
+* Fixed Getaway Shootout
+* Fixed Tunnel Rush
+* Fixed Idle Breakout
+* Fixed A Dance of Fire and Ice
+* Fixed Crossy Road
+* Fixed Chrome Dino
+* Fixed A Small World Cup
+* Fixed Moto X3M
+* Fixed Moto X3M 4: Winter
+* Fixed Moto X3M 5: Pool Party
+* Fixed Moto X3M 6: Spooky Land
+* Fixed Granny
+* Fixed PolyTrack
+* Fixed Subway Surfers Beijing
+* Fixed Subway Surfers Houston
+* Fixed Crazy Cattle 3D
+* Fixed RPlatformer
