@@ -450,3 +450,6 @@ Games.
 * Fixed Subway Surfers Houston
 * Fixed Crazy Cattle 3D
 * Fixed RPlatformer
+### 2.6.0 (9.15.2026)
+* Updated Ruffle to nightly 2026.9.15
+* Added Fireboy and Watergirl in The Forest Temple to Ruffle
